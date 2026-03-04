@@ -1,0 +1,3736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houston Methodist Team 2 Newsletter - March 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --emerald: #059669;
+            --emerald-dark: #065f46;
+            --emerald-light: #34d399;
+            --gold: #f59e0b;
+            --gold-light: #fcd34d;
+            --coral: #f43f5e;
+            --lavender: #a78bfa;
+            --sky: #38bdf8;
+            --cream: #fefce8;
+            --navy: #0f172a;
+            --plum: #7c3aed;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(170deg, #064e3b 0%, #022c22 40%, #0f172a 100%);
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========== GLOBAL RAIN - COINS, SHAMROCKS, CONFETTI, SPARKLES, RAINBOW STREAKS ========== */
+        .global-rain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 997;
+            overflow: hidden;
+        }
+        .rain-item {
+            position: absolute;
+            top: -50px;
+            animation: globalFall linear infinite;
+        }
+        @keyframes globalFall {
+            0% { transform: translateY(-50px) rotate(0deg) translateX(0); opacity: 0.9; }
+            20% { transform: translateY(20vh) rotate(60deg) translateX(var(--rx1)); }
+            50% { transform: translateY(50vh) rotate(180deg) translateX(var(--rx2)); opacity: 0.7; }
+            80% { transform: translateY(80vh) rotate(300deg) translateX(var(--rx1)); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(var(--rx2)); opacity: 0; }
+        }
+        .rainbow-streak {
+            position: absolute;
+            width: 3px;
+            border-radius: 3px;
+            animation: streakFall linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes streakFall {
+            0% { transform: translateY(-80px) rotate(15deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(110vh) rotate(15deg); opacity: 0; }
+        }
+        .glitter-burst {
+            position: fixed;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 996;
+            animation: glitterPop 3s ease-out infinite;
+        }
+        @keyframes glitterPop {
+            0% { transform: scale(0); opacity: 0; }
+            15% { transform: scale(1.5); opacity: 1; }
+            30% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(0) translateY(40px); opacity: 0; }
+        }
+
+        /* ========== PERSISTENT BOTTOM PARADE ========== */
+        .bottom-parade {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 70px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .bottom-parade-road {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 45px;
+            background: linear-gradient(180deg, #4b5563, #374151);
+            border-top: 3px solid #6b7280;
+        }
+        .bottom-parade-road::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, #fbbf24 0px, #fbbf24 30px, transparent 30px, transparent 55px);
+            transform: translateY(-50%);
+            animation: roadLines 2s linear infinite;
+        }
+        .bottom-parade-grass {
+            position: absolute;
+            bottom: 45px; left: 0; right: 0;
+            height: 25px;
+            background: linear-gradient(180deg, transparent, rgba(74,222,128,0.4));
+        }
+        .bottom-marcher {
+            position: absolute;
+            bottom: 22px;
+            animation: bottomMarch linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes bottomMarch {
+            0% { left: -60px; }
+            100% { left: calc(100% + 60px); }
+        }
+        .bottom-marcher-emoji {
+            font-size: 32px;
+            display: inline-block;
+            animation: marcherStep 0.5s ease-in-out infinite alternate;
+            filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.4));
+        }
+        .bottom-marcher-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 7px;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 1px 5px;
+            border-radius: 3px;
+            display: block;
+            text-align: center;
+            margin-top: -4px;
+        }
+        .bottom-coin-thrower {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .bottom-thrown-coin {
+            position: absolute;
+            font-size: 12px;
+            animation: bottomThrowCoin 1s ease-out infinite;
+        }
+        @keyframes bottomThrowCoin {
+            0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--btcx), var(--btcy)) rotate(360deg); opacity: 0; }
+        }
+
+        /* ========== FLOATING PETALS ========== */
+        .petals-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            top: -60px;
+            opacity: 0.7;
+            animation: petalFall linear infinite;
+        }
+        .petal svg {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        @keyframes petalFall {
+            0% { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0.8; }
+            25% { transform: translateY(25vh) rotate(90deg) translateX(30px); }
+            50% { transform: translateY(50vh) rotate(180deg) translateX(-20px); opacity: 0.6; }
+            75% { transform: translateY(75vh) rotate(270deg) translateX(40px); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(10px); opacity: 0; }
+        }
+
+        /* ========== FIREFLIES ========== */
+        .firefly {
+            position: fixed;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            box-shadow: 0 0 12px var(--gold), 0 0 30px var(--gold), 0 0 50px rgba(245,158,11,0.3);
+            pointer-events: none;
+            z-index: 998;
+            animation: fireflyFloat 8s ease-in-out infinite;
+        }
+        @keyframes fireflyFloat {
+            0%, 100% { opacity: 0; transform: translate(0, 0); }
+            10% { opacity: 1; }
+            50% { opacity: 0.6; transform: translate(var(--fx), var(--fy)); }
+            90% { opacity: 1; }
+        }
+
+        /* ========== NEWSLETTER CONTAINER ========== */
+        .newsletter {
+            max-width: 880px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            background: linear-gradient(90deg, var(--emerald), var(--gold), var(--coral), var(--lavender), var(--sky), var(--emerald));
+            background-size: 300% 100%;
+            z-index: -1;
+            border-radius: 14px;
+            animation: rainbowBorder 6s linear infinite;
+        }
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: linear-gradient(160deg, #022c1a 0%, #041f12 35%, #000d08 65%, #011a10 100%);
+            padding: 70px 30px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Deep emerald base layer */
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(16,80,40,0.6) 0%, transparent 65%),
+                radial-gradient(ellipse at 0% 0%,   rgba(34,197,94,0.18) 0%, transparent 40%),
+                radial-gradient(ellipse at 100% 0%, rgba(34,197,94,0.18) 0%, transparent 40%),
+                radial-gradient(ellipse at 0% 100%, rgba(34,197,94,0.18) 0%, transparent 40%),
+                radial-gradient(ellipse at 100% 100%, rgba(34,197,94,0.18) 0%, transparent 40%);
+            z-index: 0;
+        }
+
+        /* Aurora drift — emerald */
+        .header-aurora-1 {
+            position: absolute;
+            width: 160%; height: 300px;
+            top: -60px; left: -30%;
+            background: radial-gradient(ellipse at 50% 50%,
+                rgba(34,197,94,0.20) 0%, rgba(16,185,129,0.10) 40%, transparent 70%);
+            animation: auroraDrift1 18s ease-in-out infinite;
+            filter: blur(40px);
+            z-index: 1;
+            pointer-events: none;
+        }
+        @keyframes auroraDrift1 {
+            0%   { transform: translateX(0%)  scaleY(1);    opacity: 0.8; }
+            33%  { transform: translateX(8%)  scaleY(1.15); opacity: 1; }
+            66%  { transform: translateX(-6%) scaleY(0.9);  opacity: 0.7; }
+            100% { transform: translateX(0%)  scaleY(1);    opacity: 0.8; }
+        }
+
+        /* Aurora drift — gold */
+        .header-aurora-2 {
+            position: absolute;
+            width: 140%; height: 280px;
+            bottom: -40px; left: -20%;
+            background: radial-gradient(ellipse at 50% 50%,
+                rgba(251,191,36,0.12) 0%, rgba(245,158,11,0.06) 45%, transparent 70%);
+            animation: auroraDrift2 22s ease-in-out infinite;
+            filter: blur(50px);
+            z-index: 1;
+            pointer-events: none;
+        }
+        @keyframes auroraDrift2 {
+            0%   { transform: translateX(0%)   scaleY(1);    opacity: 0.6; }
+            40%  { transform: translateX(-9%)  scaleY(1.2);  opacity: 0.9; }
+            70%  { transform: translateX(5%)   scaleY(0.85); opacity: 0.6; }
+            100% { transform: translateX(0%)   scaleY(1);    opacity: 0.6; }
+        }
+
+        /* Projector scan line */
+        .header-scanline {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent 0%, rgba(255,255,255,0.0) 10%,
+                rgba(255,255,255,0.85) 50%,
+                rgba(255,255,255,0.0) 90%, transparent 100%);
+            animation: scanSweep 1.4s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+            transform: translateY(-4px);
+            z-index: 10;
+            pointer-events: none;
+        }
+        @keyframes scanSweep {
+            0%   { top: 0%;   opacity: 0; }
+            10%  { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Title flash */
+        .header-flash {
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,0);
+            animation: titleFlash 0.6s ease 0.9s forwards;
+            z-index: 9; pointer-events: none;
+        }
+        @keyframes titleFlash {
+            0%   { background: rgba(255,255,255,0); }
+            30%  { background: rgba(255,255,255,0.06); }
+            100% { background: rgba(255,255,255,0); }
+        }
+
+        /* ── CLOVER SYSTEM ── */
+        .clover-field {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .clover {
+            position: absolute;
+            font-size: 22px;
+            opacity: 0;
+            animation: cloverLife var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+            transform-origin: center;
+            filter: drop-shadow(0 0 6px rgba(34,197,94,0.7));
+        }
+        .clover.spin {
+            animation: cloverSpin var(--dur, 5s) linear var(--delay, 0s) infinite;
+        }
+        .clover.grow {
+            animation: cloverGrow var(--dur, 4s) ease-out var(--delay, 0s) infinite;
+        }
+        @keyframes cloverLife {
+            0%   { opacity:0; transform: translate(0,0) rotate(0deg) scale(0.5); }
+            20%  { opacity:0.9; }
+            50%  { opacity:1; transform: translate(var(--tx,10px), var(--ty,-20px)) rotate(180deg) scale(1.1); }
+            80%  { opacity:0.7; }
+            100% { opacity:0; transform: translate(var(--tx2,20px), var(--ty2,-40px)) rotate(360deg) scale(0.6); }
+        }
+        @keyframes cloverSpin {
+            0%   { opacity:0; transform: rotate(0deg) scale(0.6); }
+            15%  { opacity:1; }
+            85%  { opacity:1; }
+            100% { opacity:0; transform: rotate(360deg) scale(0.6); }
+        }
+        @keyframes cloverGrow {
+            0%   { opacity:0; transform: scale(0) rotate(-30deg); }
+            30%  { opacity:1; transform: scale(1.2) rotate(10deg); }
+            60%  { opacity:0.8; transform: scale(1) rotate(0deg); }
+            100% { opacity:0; transform: scale(0.3) rotate(30deg); }
+        }
+
+        /* Header stars */
+        .header-stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .header-star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: rgba(167,243,208,0.6);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; transform: scale(0.8); }
+            50%       { opacity: 0.8;  transform: scale(1.4); }
+        }
+
+        .logo-ring {
+            display: inline-block;
+            padding: 6px;
+            border-radius: 50%;
+            background: conic-gradient(#34d399, #fbbf24, #f87171, #a78bfa, #34d399);
+            animation: logoSpin 8s linear infinite;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 6;
+        }
+        @keyframes logoSpin {
+            0%   { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .logo-inner {
+            background: #011a10;
+            border-radius: 50%;
+            padding: 15px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900; font-size: 28px;
+            color: #34d399; line-height: 1;
+        }
+        .logo-text span { color: #fbbf24; }
+
+        .header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 68px; font-weight: 900;
+            background: linear-gradient(160deg,
+                #ffffff 0%, #bbf7d0 25%, #86efac 45%, #fde68a 70%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 40px rgba(52,211,153,0.6))
+                    drop-shadow(0 0 80px rgba(251,191,36,0.2));
+            position: relative; z-index: 6;
+            margin: 0;
+        }
+        .header-sub {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px; font-weight: 600;
+            color: rgba(167,243,208,0.85);
+            letter-spacing: 12px; text-transform: uppercase;
+            position: relative; z-index: 6;
+        }
+        .header-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px; color: rgba(255,255,255,0.35);
+            margin-top: 10px; position: relative; z-index: 6;
+        }
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #022c1a; font-weight: 700; font-size: 11px;
+            padding: 6px 18px; border-radius: 30px;
+            margin-top: 12px; letter-spacing: 2px; text-transform: uppercase;
+            position: relative; z-index: 6;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(251,191,36,0.4); }
+            50%       { box-shadow: 0 0 0 10px rgba(251,191,36,0); }
+        }
+
+        /* Bottom rule */
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg,
+                transparent, rgba(52,211,153,0.7),
+                rgba(251,191,36,0.6), rgba(167,243,208,0.5), transparent);
+            z-index: 10;
+        }
+
+        /* ========== CONTENT ========== */
+        .content { padding: 0; }
+
+        /* ========== EPIC QUOTE ========== */
+        .epic-quote {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .epic-quote::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(245,158,11,0.2), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(244,63,94,0.1), transparent 40%);
+        }
+        .epic-quote-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            animation: quoteFloat 3s ease-in-out infinite;
+        }
+        @keyframes quoteFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .epic-quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.4;
+            max-width: 650px;
+            margin: 0 auto 15px;
+            position: relative;
+            z-index: 2;
+        }
+        .epic-quote-author {
+            font-size: 14px;
+            color: #92400e;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== SECTION BASE ========== */
+        .section {
+            padding: 35px 30px;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+        .section:last-child { border-bottom: none; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title .emoji {
+            font-size: 28px;
+            animation: emojiPop 2s ease-in-out infinite;
+        }
+        @keyframes emojiPop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .section-subtitle {
+            font-size: 13px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ========== WOMEN'S HISTORY BANNER ========== */
+        .whm-banner {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 40%, #ec4899 100%);
+            padding: 45px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .whm-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.03) 20px,
+                rgba(255,255,255,0.03) 40px
+            );
+        }
+        .whm-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: white;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+        .whm-sub {
+            font-size: 14px;
+            color: #fde68a;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+        .whm-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        .whm-card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px 15px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .whm-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .whm-card-icon { font-size: 36px; margin-bottom: 8px; }
+        .whm-card-name {
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .whm-card-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* ========== MARCH MADNESS SECTION ========== */
+        .madness-section {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+            padding: 45px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .madness-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(245,158,11,0.15), transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(244,63,94,0.1), transparent 40%);
+        }
+        .madness-header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        .madness-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px rgba(245,158,11,0.5);
+        }
+        .madness-header p {
+            color: var(--gold-light);
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .bracket-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .bracket-side {
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .bracket-side-title {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .bracket-matchup {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .bracket-matchup:hover { background: rgba(255,255,255,0.1); }
+        .bracket-team {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .bracket-vs {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 11px;
+        }
+        .madness-cta {
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        .madness-cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 14px;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .madness-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(245,158,11,0.5);
+        }
+
+        /* ========== ST. PATRICK'S PARADE ========== */
+        .parade-section {
+            background: linear-gradient(180deg, #065f46 0%, #059669 15%, #34d399 40%, #6ee7b7 60%, #a7f3d0 80%, #d1fae5 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+        }
+        .parade-sky {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 180px;
+            background: linear-gradient(180deg, #0ea5e9 0%, #38bdf8 40%, #7dd3fc 70%, #bae6fd 100%);
+            z-index: 1;
+        }
+        .parade-cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.85;
+            z-index: 2;
+            animation: cloudDrift linear infinite;
+        }
+        @keyframes cloudDrift {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+        .parade-rainbow {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 250px;
+            border-radius: 250px 250px 0 0;
+            background: conic-gradient(from 180deg at 50% 100%,
+                #ef4444 0deg, #f97316 25deg, #eab308 50deg, #22c55e 75deg,
+                #3b82f6 100deg, #8b5cf6 125deg, #ec4899 150deg, transparent 155deg, transparent 360deg);
+            opacity: 0.4;
+            z-index: 2;
+            animation: rainbowPulse 4s ease-in-out infinite;
+        }
+        .parade-rainbow::after {
+            content: '';
+            position: absolute;
+            top: 18px; left: 18px; right: 18px; bottom: 0;
+            border-radius: 232px 232px 0 0;
+            background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 50%, #bae6fd 100%);
+        }
+        @keyframes rainbowPulse {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.55; }
+        }
+        .parade-title-area {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 25px 20px 15px;
+        }
+        .parade-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.3), 0 0 30px rgba(255,215,0,0.3);
+            letter-spacing: -0.5px;
+        }
+        .parade-title-sub {
+            font-size: 12px;
+            color: #fde68a;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 4px;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+        /* ROAD */
+        .parade-road {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%);
+            z-index: 3;
+        }
+        .parade-road::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #fbbf24 0px, #fbbf24 40px, transparent 40px, transparent 70px);
+            transform: translateY(-50%);
+            animation: roadLines 2s linear infinite;
+        }
+        @keyframes roadLines {
+            0% { transform: translateY(-50%) translateX(0); }
+            100% { transform: translateY(-50%) translateX(-70px); }
+        }
+        .parade-road::after {
+            content: '';
+            position: absolute;
+            top: -15px; left: 0; right: 0;
+            height: 20px;
+            background: linear-gradient(180deg, transparent, rgba(0,0,0,0.1));
+        }
+        .parade-sidewalk-top {
+            position: absolute;
+            bottom: 200px; left: 0; right: 0;
+            height: 35px;
+            background: #d1d5db;
+            z-index: 3;
+            border-top: 3px solid #9ca3af;
+        }
+        .parade-sidewalk-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 0;
+            z-index: 3;
+        }
+        .parade-grass-top {
+            position: absolute;
+            bottom: 235px; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(180deg, #34d399, #4ade80, #86efac);
+            z-index: 3;
+        }
+        /* CONFETTI CANNON - GOLD COINS */
+        .coin-container {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+        .coin {
+            position: absolute;
+            font-size: 18px;
+            animation: coinFall linear infinite;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+        }
+        @keyframes coinFall {
+            0% {
+                transform: translateY(-40px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            20% {
+                transform: translateY(60px) rotate(120deg) translateX(var(--cx)) scale(1);
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(520px) rotate(720deg) translateX(var(--cx2)) scale(0.6);
+                opacity: 0;
+            }
+        }
+        /* LEPRECHAUN */
+        .parade-leprechaun {
+            position: absolute;
+            bottom: 205px;
+            z-index: 15;
+            animation: leprechaunMarch 14s linear infinite;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+        }
+        @keyframes leprechaunMarch {
+            0% { left: -120px; }
+            100% { left: calc(100% + 120px); }
+        }
+        .leprechaun-body {
+            position: relative;
+            text-align: center;
+        }
+        .leprechaun-emoji {
+            font-size: 70px;
+            display: block;
+            animation: leprechaunBounce 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes leprechaunBounce {
+            0% { transform: translateY(0) scaleX(1); }
+            100% { transform: translateY(-12px) scaleX(-1); }
+        }
+        .leprechaun-coins {
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+        }
+        .leprechaun-coin-throw {
+            position: absolute;
+            font-size: 16px;
+            animation: throwCoin 1.2s ease-out infinite;
+        }
+        @keyframes throwCoin {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tcx), var(--tcy)) rotate(360deg); opacity: 0; }
+        }
+        /* PARADE MARCHERS */
+        .parade-marcher {
+            position: absolute;
+            bottom: 208px;
+            z-index: 12;
+            text-align: center;
+            animation: marcherWalk 14s linear infinite;
+        }
+        @keyframes marcherWalk {
+            0% { left: -80px; }
+            100% { left: calc(100% + 80px); }
+        }
+        .marcher-emoji {
+            font-size: 42px;
+            display: block;
+            animation: marcherStep 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes marcherStep {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
+        }
+        .marcher-dept {
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-top: -2px;
+        }
+        .marcher-flag {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            animation: flagWave 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes flagWave {
+            0% { transform: translateX(-50%) rotate(-10deg); }
+            100% { transform: translateX(-50%) rotate(10deg); }
+        }
+        /* SPECTATORS */
+        .parade-spectators {
+            position: absolute;
+            bottom: 240px;
+            left: 0; right: 0;
+            z-index: 5;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 10px;
+        }
+        .spectator {
+            font-size: 26px;
+            animation: spectatorCheer 1.5s ease-in-out infinite;
+        }
+        @keyframes spectatorCheer {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-8px) scale(1.1); }
+            50% { transform: translateY(0) scale(1); }
+            75% { transform: translateY(-5px) scale(1.05); }
+        }
+        /* BANNER ACROSS ROAD */
+        .parade-banner {
+            position: absolute;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 8;
+            background: linear-gradient(135deg, #059669, #065f46);
+            color: white;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 2px solid var(--gold);
+            animation: bannerSway 3s ease-in-out infinite;
+        }
+        @keyframes bannerSway {
+            0%, 100% { transform: translateX(-50%) rotate(-1deg); }
+            50% { transform: translateX(-50%) rotate(1deg); }
+        }
+        /* BUILDINGS */
+        .parade-buildings {
+            position: absolute;
+            bottom: 235px; left: 0; right: 0;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0;
+        }
+        .building {
+            background: linear-gradient(180deg, #374151, #1f2937);
+            position: relative;
+            border-radius: 4px 4px 0 0;
+            flex-shrink: 0;
+        }
+        .building-window {
+            position: absolute;
+            width: 10px; height: 12px;
+            background: #fbbf24;
+            border-radius: 2px;
+            opacity: 0.7;
+            animation: windowFlicker 4s ease-in-out infinite;
+        }
+        @keyframes windowFlicker {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== ST. PATRICK'S DAY ========== */
+        .stpat-section {
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 50%, #065f46 100%);
+            padding: 50px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stpat-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 10% 30%, rgba(52,211,153,0.12), transparent 40%),
+                radial-gradient(circle at 90% 70%, rgba(245,158,11,0.08), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(34,197,94,0.06), transparent 50%);
+        }
+        .stpat-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                60deg,
+                transparent,
+                transparent 30px,
+                rgba(255,255,255,0.015) 30px,
+                rgba(255,255,255,0.015) 60px
+            );
+            pointer-events: none;
+        }
+        .stpat-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .stpat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 900;
+            color: #4ade80;
+            text-shadow: 0 0 30px rgba(74,222,128,0.4), 0 0 60px rgba(74,222,128,0.15);
+            margin-bottom: 6px;
+        }
+        .stpat-sub {
+            font-size: 13px;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .stpat-rainbow {
+            height: 5px;
+            width: 200px;
+            margin: 18px auto 0;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ef4444);
+            animation: rainbowShimmer 3s linear infinite;
+            background-size: 200% 100%;
+        }
+        @keyframes rainbowShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .stpat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            position: relative;
+            z-index: 2;
+        }
+        .stpat-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            border: 1px solid rgba(74,222,128,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .stpat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74,222,128,0.08), transparent);
+            transition: left 0.6s;
+        }
+        .stpat-card:hover::before { left: 100%; }
+        .stpat-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3), 0 0 20px rgba(74,222,128,0.15);
+            border-color: rgba(74,222,128,0.4);
+            background: rgba(255,255,255,0.1);
+        }
+        .stpat-card-icon {
+            font-size: 44px;
+            margin-bottom: 10px;
+            display: block;
+            transition: transform 0.4s;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+        }
+        .stpat-card:hover .stpat-card-icon {
+            transform: scale(1.2) rotate(-5deg);
+        }
+        .stpat-card-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #4ade80;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(74,222,128,0.2);
+        }
+        .stpat-card-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.4;
+        }
+        .stpat-card-number {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(74,222,128,0.3);
+            font-weight: 700;
+        }
+        .stpat-featured {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(234,179,8,0.08));
+            border-color: rgba(245,158,11,0.25);
+            padding: 30px 20px;
+        }
+        .stpat-featured:hover {
+            border-color: rgba(245,158,11,0.5);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3), 0 0 25px rgba(245,158,11,0.15);
+        }
+        .stpat-featured .stpat-card-name { color: var(--gold-light); }
+        .stpat-featured .stpat-card-icon { font-size: 56px; }
+        .stpat-pot {
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        .stpat-pot-visual {
+            font-size: 60px;
+            animation: potBounce 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes potBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .stpat-pot-text {
+            color: var(--gold-light);
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 8px;
+            text-shadow: 0 0 15px rgba(245,158,11,0.3);
+        }
+        .stpat-clovers {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .stpat-clover {
+            position: absolute;
+            opacity: 0.12;
+            animation: cloverDrift 12s ease-in-out infinite;
+        }
+        @keyframes cloverDrift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(10deg); }
+            50% { transform: translateY(5px) rotate(-5deg); }
+            75% { transform: translateY(-8px) rotate(8deg); }
+        }
+        @media (max-width: 700px) {
+            .stpat-grid { grid-template-columns: 1fr 1fr; }
+            .stpat-featured { grid-column: 1 / -1; }
+        }
+
+        /* ========== SERVICE LEVELS ========== */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .service-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #d1fae5;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .service-card:hover { transform: translateY(-3px); }
+        .service-card-dept {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--emerald-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .service-card-pct {
+            font-family: 'Space Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--emerald);
+        }
+        .service-card-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        .service-target {
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            background: #fef3c7;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #92400e;
+            font-size: 14px;
+        }
+
+        /* ========== QA ALL-STARS ========== */
+        .allstars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .allstar-card {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border-radius: 14px;
+            padding: 22px 16px;
+            text-align: center;
+            border: 2px solid #fde68a;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .allstar-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(245,158,11,0.2);
+        }
+        .allstar-rank {
+            position: absolute;
+            top: 8px; right: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #b45309;
+            font-weight: 700;
+        }
+        .allstar-avatar {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+        }
+        .allstar-name {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+        .allstar-score {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--emerald);
+        }
+        .allstar-label {
+            font-size: 10px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== CAKE DAYS ========== */
+        .birthday-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+        .birthday-card {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            border: 1px solid #fbcfe8;
+            transition: transform 0.3s;
+        }
+        .birthday-card:hover { transform: scale(1.05); }
+        .birthday-cake { font-size: 32px; margin-bottom: 6px; }
+        .birthday-name {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--navy);
+        }
+        .birthday-date {
+            font-size: 12px;
+            color: #9d174d;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* ========== HOROSCOPE ========== */
+        .horoscope-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .horoscope-card {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-radius: 14px;
+            padding: 22px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .horoscope-card:hover { transform: translateY(-3px); }
+        .horoscope-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(167,139,250,0.15), transparent 60%);
+        }
+        .horoscope-sign {
+            font-size: 36px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        .horoscope-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--gold-light);
+            position: relative;
+            z-index: 2;
+        }
+        .horoscope-dates {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        .horoscope-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========== DATES / EVENTS ========== */
+        .dates-list { list-style: none; }
+        .dates-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .dates-item:last-child { border-bottom: none; }
+        .dates-day {
+            min-width: 50px;
+            text-align: center;
+        }
+        .dates-day-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--emerald);
+            line-height: 1;
+        }
+        .dates-day-month {
+            font-size: 10px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dates-info-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--navy);
+        }
+        .dates-info-desc {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+        .dates-emoji { font-size: 24px; }
+
+        /* ========== KUDOS CORNER ========== */
+        .kudos-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+        }
+        .kudos-card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--gold);
+            transition: transform 0.3s;
+        }
+        .kudos-card:hover { transform: translateX(4px); }
+        .kudos-card:last-child { margin-bottom: 0; }
+        .kudos-to {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .kudos-text {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .kudos-from {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* ========== ANNOUNCEMENTS ========== */
+        .announce-card {
+            background: #f0f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid #bae6fd;
+        }
+        .announce-card:last-child { margin-bottom: 0; }
+        .announce-title {
+            font-weight: 700;
+            color: #0c4a6e;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+        .announce-text {
+            font-size: 13px;
+            color: #1e3a5f;
+            line-height: 1.6;
+        }
+
+        /* ========== WELLNESS CORNER ========== */
+        .wellness-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        }
+        .wellness-tips {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .wellness-tip {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid #d1fae5;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .wellness-tip:hover { transform: translateY(-3px); }
+        .wellness-tip-icon { font-size: 36px; margin-bottom: 10px; }
+        .wellness-tip-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--emerald-dark);
+            margin-bottom: 6px;
+        }
+        .wellness-tip-text {
+            font-size: 12px;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        /* ========== TRIVIA ========== */
+        .trivia-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+        }
+        .trivia-card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .trivia-card:hover { background: rgba(255,255,255,0.1); }
+        .trivia-q {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--gold-light);
+        }
+        .trivia-a {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            display: none;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .trivia-card.revealed .trivia-a { display: block; }
+        .trivia-hint {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* ========== FUN DAYS ========== */
+        .fundays-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .funday {
+            background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+            border-radius: 10px;
+            padding: 14px 10px;
+            text-align: center;
+            border: 1px solid #e9d5ff;
+            transition: transform 0.3s;
+        }
+        .funday:hover { transform: scale(1.05); }
+        .funday-icon { font-size: 28px; margin-bottom: 4px; }
+        .funday-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--plum);
+            line-height: 1.3;
+        }
+        .funday-date {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        /* ========== NEW HIRE SECTION ========== */
+        .newhire-questions {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+        }
+        .question-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--coral);
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+        }
+        .question-item:last-child { margin-bottom: 0; }
+        .question-cat {
+            font-weight: 700;
+            color: var(--coral);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        /* ========== SPOTIFY ========== */
+        .spotify-embed {
+            background: #191414;
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+        }
+        .spotify-title {
+            color: #1DB954;
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .spotify-sub {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        .spotify-tracks {
+            text-align: left;
+        }
+        .spotify-track {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .spotify-track:hover { background: rgba(255,255,255,0.05); }
+        .spotify-track-num {
+            font-family: 'Space Mono', monospace;
+            color: rgba(255,255,255,0.3);
+            font-size: 14px;
+            min-width: 20px;
+        }
+        .spotify-track-info { flex: 1; }
+        .spotify-track-name {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .spotify-track-artist {
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+        }
+        .spotify-track-dur {
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* ========== CARDI AI REVEAL ========== */
+        .cardi-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1a0a2e 40%, #0f172a 100%);
+            padding: 55px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cardi-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(245,158,11,0.12), transparent 45%),
+                radial-gradient(circle at 70% 60%, rgba(124,58,237,0.1), transparent 45%),
+                radial-gradient(circle at 50% 20%, rgba(52,211,153,0.06), transparent 50%);
+        }
+        .cardi-coins-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .cardi-coin-bg {
+            position: absolute;
+            animation: cardiCoinFloat 6s ease-in-out infinite;
+            opacity: 0.15;
+        }
+        @keyframes cardiCoinFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(15deg); }
+            50% { transform: translateY(10px) rotate(-10deg); }
+            75% { transform: translateY(-12px) rotate(8deg); }
+        }
+        .cardi-content {
+            position: relative;
+            z-index: 2;
+        }
+        .cardi-confetti {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 3;
+            overflow: hidden;
+        }
+        .cardi-confetti-coin {
+            position: absolute;
+            top: -40px;
+            animation: cardiCoinRain linear infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        @keyframes cardiCoinRain {
+            0% { transform: translateY(-40px) rotate(0deg) scale(1); opacity: 1; }
+            15% { opacity: 1; }
+            85% { opacity: 0.7; }
+            100% { transform: translateY(600px) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+        .cardi-pre-label {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05));
+            color: var(--gold-light);
+            font-weight: 700;
+            font-size: 11px;
+            padding: 6px 20px;
+            border-radius: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: 1px solid rgba(245,158,11,0.3);
+            margin-bottom: 20px;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        .cardi-logo-container {
+            margin: 20px auto 25px;
+            display: inline-block;
+            position: relative;
+        }
+        .cardi-logo-ring {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#fbbf24, #f59e0b, #d97706, #b45309, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: cardiRingSpin 4s linear infinite;
+            box-shadow: 0 0 40px rgba(245,158,11,0.3), 0 0 80px rgba(245,158,11,0.1);
+        }
+        @keyframes cardiRingSpin {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        .cardi-logo-inner {
+            width: 124px; height: 124px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a0a2e, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .cardi-logo-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(245,158,11,0.5);
+        }
+        .cardi-logo-ai {
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .cardi-logo-sparkles {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+        }
+        .cardi-sparkle {
+            position: absolute;
+            font-size: 18px;
+            animation: cardiSparkle 2s ease-in-out infinite;
+        }
+        @keyframes cardiSparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .cardi-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 6px;
+            text-shadow: 0 0 30px rgba(245,158,11,0.3);
+        }
+        .cardi-title span {
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(245,158,11,0.5);
+        }
+        .cardi-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .cardi-winner-card {
+            display: inline-block;
+            background: linear-gradient(135deg, #422006, #78350f);
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 25px 40px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px rgba(245,158,11,0.2), 0 8px 30px rgba(0,0,0,0.3);
+            animation: winnerGlow 3s ease-in-out infinite;
+        }
+        @keyframes winnerGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(245,158,11,0.2), 0 8px 30px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 0 50px rgba(245,158,11,0.4), 0 8px 40px rgba(0,0,0,0.3), 0 0 80px rgba(245,158,11,0.1); }
+        }
+        .cardi-winner-pre {
+            font-size: 11px;
+            color: #fbbf24;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .cardi-winner-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 4px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+        .cardi-winner-note {
+            font-size: 13px;
+            color: #fcd34d;
+            font-weight: 600;
+        }
+        .cardi-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .cardi-desc strong {
+            color: var(--gold-light);
+        }
+
+        /* ========== COUNTDOWN TIMER ========== */
+        .countdown-section {
+            background: linear-gradient(135deg, #7f1d1d, #991b1b, #b91c1c);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.02) 15px, rgba(255,255,255,0.02) 30px);
+        }
+        .countdown-label {
+            font-size: 13px;
+            color: #fca5a5;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        .countdown-event {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .countdown-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+        .countdown-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 14px;
+            padding: 18px 22px;
+            min-width: 85px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+        .countdown-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: #fbbf24;
+            line-height: 1;
+            text-shadow: 0 0 15px rgba(251,191,36,0.4);
+        }
+        .countdown-unit {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 6px;
+        }
+        .countdown-note {
+            font-size: 12px;
+            color: #fca5a5;
+            margin-top: 16px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            animation: countdownPulse 2s ease-in-out infinite;
+        }
+        @keyframes countdownPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== RECIPE CORNER ========== */
+        .recipe-section {
+            background: linear-gradient(135deg, #fef3c7, #fffbeb, #fff7ed);
+            position: relative;
+        }
+        .recipe-card-main {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #fde68a;
+        }
+        .recipe-header-bar {
+            background: linear-gradient(135deg, #059669, #065f46);
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .recipe-header-icon { font-size: 42px; }
+        .recipe-header-info h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 2px;
+        }
+        .recipe-header-info span {
+            font-size: 12px;
+            color: #a7f3d0;
+            font-weight: 500;
+        }
+        .recipe-body {
+            padding: 25px;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .recipe-meta-item {
+            text-align: center;
+            flex: 1;
+            padding: 12px;
+            background: #f0fdf4;
+            border-radius: 10px;
+        }
+        .recipe-meta-icon { font-size: 22px; }
+        .recipe-meta-val { font-weight: 800; font-size: 14px; color: #065f46; }
+        .recipe-meta-label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
+        .recipe-ingredients h5, .recipe-steps h5 {
+            font-weight: 800;
+            font-size: 14px;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .recipe-ingredients ul {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+            margin-bottom: 20px;
+        }
+        .recipe-ingredients li {
+            font-size: 13px;
+            color: #374151;
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .recipe-ingredients li::before {
+            content: '\2618\FE0F';
+            position: absolute;
+            left: 0;
+            font-size: 10px;
+        }
+        .recipe-steps ol {
+            padding-left: 20px;
+        }
+        .recipe-steps li {
+            font-size: 13px;
+            color: #374151;
+            line-height: 1.6;
+            padding: 4px 0;
+        }
+
+        /* ========== CINEMATIC CLOSER ========== */
+        .cinematic-section {
+            background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cinematic-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(52,211,153,0.08), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(245,158,11,0.06), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(124,58,237,0.05), transparent 60%);
+        }
+        .cinematic-stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+        }
+        .cinematic-star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        .cinematic-content {
+            position: relative;
+            z-index: 2;
+        }
+        .cinematic-pre {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: fadeSlideUp 1s ease-out;
+        }
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .cinematic-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-shadow: 0 0 40px rgba(52,211,153,0.3);
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+        .cinematic-subtitle {
+            font-size: 18px;
+            color: var(--emerald-light);
+            font-weight: 500;
+            margin-bottom: 35px;
+            animation: fadeSlideUp 1s ease-out 0.4s both;
+        }
+        .cinematic-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            animation: fadeSlideUp 1s ease-out 0.6s both;
+        }
+        .cinematic-stat {
+            text-align: center;
+        }
+        .cinematic-stat-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(245,158,11,0.3);
+        }
+        .cinematic-stat-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+        .cinematic-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+            margin: 0 auto 30px;
+            border-radius: 10px;
+            animation: fadeSlideUp 1s ease-out 0.8s both;
+        }
+        .cinematic-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            animation: fadeSlideUp 1s ease-out 1s both;
+        }
+        .cinematic-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--emerald), #059669);
+            color: white;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 25px rgba(52,211,153,0.3);
+            animation: fadeSlideUp 1s ease-out 1.2s both, badgePulse 2s ease-in-out infinite 2s;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+        .footer-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .footer-sub {
+            color: var(--emerald-light);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .footer-team {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .footer-hearts {
+            margin-top: 15px;
+            font-size: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 700px) {
+            .whm-cards, .bracket-visual, .allstars-grid, .horoscope-grid, .wellness-tips { grid-template-columns: 1fr; }
+            .fundays-grid { grid-template-columns: repeat(2, 1fr); }
+            .service-grid { grid-template-columns: 1fr; }
+            .header h2 { font-size: 30px; }
+            .epic-quote-text { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- GLOBAL RAIN - COINS, SHAMROCKS, CONFETTI, SPARKLES, RAINBOW STREAKS -->
+<div class="global-rain" id="globalRain"></div>
+
+<!-- GLITTER BURSTS -->
+<div id="glitterBursts"></div>
+
+<!-- PERSISTENT BOTTOM PARADE -->
+<div class="bottom-parade">
+    <div class="bottom-parade-grass"></div>
+    <div class="bottom-parade-road"></div>
+    <!-- Leprechaun leader -->
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:0s;z-index:1002;">
+        <div class="bottom-coin-thrower" id="bottomCoinThrower"></div>
+        <span class="bottom-marcher-emoji">&#129497;&#8205;&#9794;&#65039;</span>
+    </div>
+    <!-- Diverse marchers -->
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:1.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127999;&#8205;&#9877;&#65039;</span>
+        <span class="bottom-marcher-label">CARDIO</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:2.2s;">
+        <span class="bottom-marcher-emoji">&#128104;&#127997;&#8205;&#9877;&#65039;</span>
+        <span class="bottom-marcher-label">NEURO</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:3.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127998;&#8205;&#128188;</span>
+        <span class="bottom-marcher-label">ORTHO</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:4.2s;">
+        <span class="bottom-marcher-emoji">&#128104;&#127995;&#8205;&#128187;</span>
+        <span class="bottom-marcher-label">Actium</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:5.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127996;&#8205;&#9877;&#65039;</span>
+        <span class="bottom-marcher-label">EP</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:6.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127999;&#8205;&#128187;</span>
+        <span class="bottom-marcher-label">SCHED</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:7.2s;">
+        <span class="bottom-marcher-emoji">&#128104;&#127998;&#8205;&#9877;&#65039;</span>
+        <span class="bottom-marcher-label">REFER</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:8.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127997;&#8205;&#128188;</span>
+        <span class="bottom-marcher-label">INSUR</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:9.2s;">
+        <span class="bottom-marcher-emoji">&#128104;&#127999;&#8205;&#128188;</span>
+        <span class="bottom-marcher-label">LEAD</span>
+    </div>
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:10.2s;">
+        <span class="bottom-marcher-emoji">&#128105;&#127995;&#8205;&#9877;&#65039;</span>
+        <span class="bottom-marcher-label">TEAM 2</span>
+    </div>
+    <!-- Trailing leprechaun -->
+    <div class="bottom-marcher" style="animation-duration:12s;animation-delay:11.2s;">
+        <span class="bottom-marcher-emoji">&#129497;</span>
+    </div>
+</div>
+
+<!-- FLOATING PETALS -->
+<div class="petals-container" id="petals"></div>
+
+<!-- FIREFLIES -->
+<div id="fireflies"></div>
+
+<div class="newsletter">
+
+    <!-- ========== HEADER ========== -->
+    <div class="header">
+
+        <!-- Layers -->
+        <div class="header-bg"></div>
+        <div class="header-aurora-1"></div>
+        <div class="header-aurora-2"></div>
+        <div class="header-scanline"></div>
+        <div class="header-flash"></div>
+        <div class="header-stars" id="headerStars"></div>
+
+        <!-- CLOVER FIELD — JS populated below -->
+        <div class="clover-field" id="cloverField"></div>
+
+        <!-- CONTENT -->
+        <div style="position:relative;z-index:6;width:100%;">
+
+            <!-- Micro studio tag -->
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:8px;
+                color:rgba(167,243,208,0.22);text-transform:uppercase;margin-bottom:22px;
+                animation:hmFadeIn 1s ease 0.4s both;">
+                Houston Methodist &nbsp;&bull;&nbsp; Team 2 &nbsp;&bull;&nbsp; March 2026
+            </div>
+
+            <!-- HM Logo ring -->
+            <div class="logo-ring" style="margin-bottom:26px;animation:hmFadeIn 1.2s ease 0.2s both;">
+                <div class="logo-inner">
+                    <div class="logo-text">HM<span>&plus;</span></div>
+                </div>
+            </div>
+
+            <!-- Top rule -->
+            <div style="width:0;height:1px;margin:0 auto 24px;
+                background:linear-gradient(90deg,transparent,rgba(52,211,153,0.5),rgba(255,255,255,0.15),rgba(251,191,36,0.4),transparent);
+                animation:ruleExpand 1.2s cubic-bezier(0.4,0,0.2,1) 0.8s forwards;">
+            </div>
+
+            <!-- Big clover behind title -->
+            <div style="font-size:80px;line-height:1;margin-bottom:-20px;position:relative;z-index:5;
+                filter:drop-shadow(0 0 30px rgba(34,197,94,0.8)) drop-shadow(0 0 60px rgba(34,197,94,0.4));
+                animation:bigCloverPulse 3s ease-in-out infinite, hmFadeIn 1.2s ease 0.7s both;
+                opacity:0;">
+                &#127808;
+            </div>
+
+            <!-- TEAM 2 -->
+            <div style="overflow:hidden;">
+                <h2 style="animation:titleReveal 0.9s cubic-bezier(0.16,1,0.3,1) 1s both;opacity:0;">
+                    TEAM&nbsp;2
+                </h2>
+            </div>
+
+            <!-- Bottom rule -->
+            <div style="width:0;height:2px;margin:16px auto 18px;
+                background:linear-gradient(90deg,transparent,rgba(52,211,153,0.8),rgba(251,191,36,0.6),rgba(167,243,208,0.6),transparent);
+                animation:ruleExpand 1.4s cubic-bezier(0.4,0,0.2,1) 1.6s forwards;border-radius:2px;">
+            </div>
+
+            <!-- March 2026 -->
+            <div class="header-sub" style="animation:hmFadeIn 1s ease 1.8s both;opacity:0;">
+                March &nbsp; 2026
+            </div>
+
+            <!-- Tagline -->
+            <div style="font-family:'Playfair Display',serif;font-style:italic;
+                font-size:14px;color:rgba(255,255,255,0.38);letter-spacing:0.5px;
+                margin:14px 0 20px;
+                animation:hmFadeIn 1.2s ease 2.1s both;opacity:0;">
+                &ldquo;Every month tells a story. This one&rsquo;s ours.&rdquo;
+            </div>
+
+            <!-- Badge -->
+            <div class="header-badge" style="animation:hmFadeIn 1s ease 2.4s both;opacity:0;">
+                &#9752; Spring Has Sprung &#9752;
+            </div>
+
+        </div>
+
+        <style>
+        @keyframes hmFadeIn {
+            from { opacity:0; transform:translateY(14px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes titleReveal {
+            from { opacity:0; transform:translateY(100%) skewY(3deg); filter:blur(8px); }
+            to   { opacity:1; transform:translateY(0)    skewY(0deg); filter:blur(0); }
+        }
+        @keyframes ruleExpand {
+            from { width:0;     opacity:0; }
+            to   { width:320px; opacity:1; }
+        }
+        @keyframes bigCloverPulse {
+            0%,100% { transform:scale(1)    rotate(-5deg); filter:drop-shadow(0 0 30px rgba(34,197,94,0.8)); }
+            50%     { transform:scale(1.08) rotate(5deg);  filter:drop-shadow(0 0 50px rgba(34,197,94,1.0)) drop-shadow(0 0 80px rgba(251,191,36,0.3)); }
+        }
+        </style>
+    </div>
+
+    <div class="content">
+
+        <!-- ========== QUOTE OF THE MONTH ========== -->
+        <div class="epic-quote">
+            <div class="epic-quote-icon">&#127793;</div>
+            <div class="epic-quote-text">
+                &ldquo;Growth is never by mere chance; it is the result of forces working together.&rdquo;
+            </div>
+            <div class="epic-quote-author">&mdash; Team 2, Blooming Into Excellence &bull; March 2026</div>
+        </div>
+
+        <!-- ========== WOMEN'S HISTORY MONTH ========== -->
+        <div class="whm-banner">
+            <div class="whm-title">&#128156; Women&rsquo;s History Month &#128156;</div>
+            <div class="whm-sub">Celebrating Women Who Lead, Heal &amp; Inspire</div>
+            <div class="whm-cards">
+                <div class="whm-card">
+                    <div class="whm-card-icon">&#128105;&#127995;&#8205;&#9877;&#65039;</div>
+                    <div class="whm-card-name">Florence Nightingale</div>
+                    <div class="whm-card-desc">Founded modern nursing &amp; pioneered healthcare data analysis</div>
+                </div>
+                <div class="whm-card">
+                    <div class="whm-card-icon">&#128105;&#127997;&#8205;&#128300;</div>
+                    <div class="whm-card-name">Dr. Virginia Apgar</div>
+                    <div class="whm-card-desc">Created the Apgar Score, saving countless newborn lives worldwide</div>
+                </div>
+                <div class="whm-card">
+                    <div class="whm-card-icon">&#128105;&#127999;&#8205;&#128188;</div>
+                    <div class="whm-card-name">The Women of Team 2</div>
+                    <div class="whm-card-desc">Showing up every single day with excellence, compassion &amp; heart</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MARCH MADNESS ========== -->
+        <div class="madness-section">
+            <div class="madness-header">
+                <h3>&#127936; March Madness</h3>
+                <p>Team 2 Bracket Challenge</p>
+            </div>
+            <div class="bracket-visual">
+                <div class="bracket-side">
+                    <div class="bracket-side-title">&#127941; Productivity Conference</div>
+                    <div class="bracket-matchup">
+                        <span class="bracket-team">&#128222; Call Volume</span>
+                        <span class="bracket-vs">VS</span>
+                        <span class="bracket-team">&#9201; Hold Time</span>
+                    </div>
+                    <div class="bracket-matchup">
+                        <span class="bracket-team">&#128203; QA Scores</span>
+                        <span class="bracket-vs">VS</span>
+                        <span class="bracket-team">&#128170; Consistency</span>
+                    </div>
+                </div>
+                <div class="bracket-side">
+                    <div class="bracket-side-title">&#129351; Service Conference</div>
+                    <div class="bracket-matchup">
+                        <span class="bracket-team">&#128150; Patient Care</span>
+                        <span class="bracket-vs">VS</span>
+                        <span class="bracket-team">&#129309; Teamwork</span>
+                    </div>
+                    <div class="bracket-matchup">
+                        <span class="bracket-team">&#128200; Growth</span>
+                        <span class="bracket-vs">VS</span>
+                        <span class="bracket-team">&#128588; Attitude</span>
+                    </div>
+                </div>
+            </div>
+            <div class="madness-cta">
+                <span class="madness-cta-btn">&#127942; Who Wins? You Decide!</span>
+            </div>
+        </div>
+
+        <!-- ========== ST. PATRICK'S PARADE ========== -->
+        <div class="parade-section">
+            <!-- SKY -->
+            <div class="parade-sky"></div>
+            <div class="parade-cloud" style="width:120px;height:40px;top:30px;animation-duration:25s;animation-delay:0s;"></div>
+            <div class="parade-cloud" style="width:90px;height:30px;top:60px;animation-duration:35s;animation-delay:5s;"></div>
+            <div class="parade-cloud" style="width:150px;height:45px;top:15px;animation-duration:30s;animation-delay:12s;"></div>
+            <!-- RAINBOW -->
+            <div class="parade-rainbow"></div>
+            <!-- TITLE -->
+            <div class="parade-title-area">
+                <div class="parade-title">&#9752;&#65039; Team 2 St. Patrick&rsquo;s Day Parade &#9752;&#65039;</div>
+                <div class="parade-title-sub">All Departments &bull; Marching Together &bull; March 17, 2026</div>
+            </div>
+            <!-- BANNER -->
+            <div class="parade-banner">&#127808; HOUSTON METHODIST TEAM 2 &#127808;</div>
+            <!-- BUILDINGS -->
+            <div class="parade-buildings">
+                <div class="building" style="width:60px;height:110px;margin-left:20px;">
+                    <div class="building-window" style="top:15px;left:10px;"></div>
+                    <div class="building-window" style="top:15px;left:35px;animation-delay:1s;"></div>
+                    <div class="building-window" style="top:45px;left:10px;animation-delay:2s;"></div>
+                    <div class="building-window" style="top:45px;left:35px;animation-delay:0.5s;"></div>
+                    <div class="building-window" style="top:75px;left:10px;animation-delay:1.5s;"></div>
+                    <div class="building-window" style="top:75px;left:35px;animation-delay:3s;"></div>
+                </div>
+                <div class="building" style="width:50px;height:80px;">
+                    <div class="building-window" style="top:12px;left:8px;"></div>
+                    <div class="building-window" style="top:12px;left:28px;animation-delay:2s;"></div>
+                    <div class="building-window" style="top:42px;left:8px;animation-delay:1s;"></div>
+                    <div class="building-window" style="top:42px;left:28px;animation-delay:3s;"></div>
+                </div>
+                <div class="building" style="width:70px;height:130px;">
+                    <div class="building-window" style="top:15px;left:10px;animation-delay:0.5s;"></div>
+                    <div class="building-window" style="top:15px;left:40px;"></div>
+                    <div class="building-window" style="top:50px;left:10px;animation-delay:2s;"></div>
+                    <div class="building-window" style="top:50px;left:40px;animation-delay:1s;"></div>
+                    <div class="building-window" style="top:85px;left:10px;animation-delay:3s;"></div>
+                    <div class="building-window" style="top:85px;left:40px;animation-delay:0.5s;"></div>
+                </div>
+                <div class="building" style="width:55px;height:95px;">
+                    <div class="building-window" style="top:12px;left:10px;animation-delay:1s;"></div>
+                    <div class="building-window" style="top:12px;left:32px;animation-delay:2.5s;"></div>
+                    <div class="building-window" style="top:45px;left:10px;"></div>
+                    <div class="building-window" style="top:45px;left:32px;animation-delay:1.5s;"></div>
+                </div>
+                <div class="building" style="width:65px;height:120px;margin-right:20px;">
+                    <div class="building-window" style="top:15px;left:10px;animation-delay:0.5s;"></div>
+                    <div class="building-window" style="top:15px;left:38px;animation-delay:2s;"></div>
+                    <div class="building-window" style="top:50px;left:10px;animation-delay:1s;"></div>
+                    <div class="building-window" style="top:50px;left:38px;animation-delay:3s;"></div>
+                    <div class="building-window" style="top:85px;left:10px;animation-delay:2s;"></div>
+                    <div class="building-window" style="top:85px;left:38px;"></div>
+                </div>
+            </div>
+            <!-- SPECTATORS - DIVERSE CROWD -->
+            <div class="parade-spectators">
+                <span class="spectator" style="animation-delay:0s;">&#128079;&#127998;</span>
+                <span class="spectator" style="animation-delay:0.3s;">&#129395;</span>
+                <span class="spectator" style="animation-delay:0.6s;">&#128588;&#127999;</span>
+                <span class="spectator" style="animation-delay:0.2s;">&#128079;&#127995;</span>
+                <span class="spectator" style="animation-delay:0.8s;">&#127881;</span>
+                <span class="spectator" style="animation-delay:0.1s;">&#128588;&#127997;</span>
+                <span class="spectator" style="animation-delay:0.5s;">&#129395;</span>
+                <span class="spectator" style="animation-delay:0.4s;">&#128079;&#127996;</span>
+                <span class="spectator" style="animation-delay:0.7s;">&#127881;</span>
+                <span class="spectator" style="animation-delay:0.9s;">&#128588;&#127998;</span>
+                <span class="spectator" style="animation-delay:0.2s;">&#129395;</span>
+                <span class="spectator" style="animation-delay:0.6s;">&#128079;&#127999;</span>
+            </div>
+            <!-- SIDEWALK -->
+            <div class="parade-sidewalk-top"></div>
+            <div class="parade-grass-top"></div>
+            <!-- ROAD -->
+            <div class="parade-road"></div>
+            <!-- GOLD COINS EVERYWHERE -->
+            <div class="coin-container" id="coinContainer"></div>
+            <!-- LEPRECHAUN LEADER -->
+            <div class="parade-leprechaun" id="leprechaun1" style="animation-delay: 0s;">
+                <div class="leprechaun-body">
+                    <div class="leprechaun-coins" id="lepCoinThrower"></div>
+                    <span class="leprechaun-emoji">&#129497;&#8205;&#9794;&#65039;</span>
+                </div>
+            </div>
+            <!-- MARCHERS - ALL DEPARTMENTS - DIVERSE TEAM -->
+            <div class="parade-marcher" style="animation-delay: 1.5s; z-index: 13;">
+                <span class="marcher-flag">&#9752;&#65039;</span>
+                <span class="marcher-emoji">&#128105;&#127999;&#8205;&#9877;&#65039;</span>
+                <span class="marcher-dept">CARDIOLOGY</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 2.5s;">
+                <span class="marcher-flag">&#128154;</span>
+                <span class="marcher-emoji">&#128104;&#127997;&#8205;&#9877;&#65039;</span>
+                <span class="marcher-dept">NEUROLOGY</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 3.3s; z-index: 13;">
+                <span class="marcher-flag">&#127808;</span>
+                <span class="marcher-emoji">&#128105;&#127998;&#8205;&#128188;</span>
+                <span class="marcher-dept">ORTHOPEDICS</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 4.2s;">
+                <span class="marcher-flag">&#9752;&#65039;</span>
+                <span class="marcher-emoji">&#128104;&#127995;&#8205;&#128187;</span>
+                <span class="marcher-dept">Actium</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 5.0s; z-index: 13;">
+                <span class="marcher-flag">&#127922;</span>
+                <span class="marcher-emoji">&#128105;&#127996;&#8205;&#9877;&#65039;</span>
+                <span class="marcher-dept">EP TEAM</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 5.8s;">
+                <span class="marcher-flag">&#128154;</span>
+                <span class="marcher-emoji">&#128105;&#127999;&#8205;&#128187;</span>
+                <span class="marcher-dept">SCHEDULING</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 6.6s; z-index: 13;">
+                <span class="marcher-flag">&#127808;</span>
+                <span class="marcher-emoji">&#128104;&#127998;&#8205;&#9877;&#65039;</span>
+                <span class="marcher-dept">REFERRALS</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 7.4s;">
+                <span class="marcher-flag">&#9752;&#65039;</span>
+                <span class="marcher-emoji">&#128105;&#127997;&#8205;&#128188;</span>
+                <span class="marcher-dept">INSURANCE</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 8.2s; z-index: 13;">
+                <span class="marcher-flag">&#128154;</span>
+                <span class="marcher-emoji">&#128104;&#127999;&#8205;&#128188;</span>
+                <span class="marcher-dept">LEADERSHIP</span>
+            </div>
+            <div class="parade-marcher" style="animation-delay: 9.0s;">
+                <span class="marcher-flag">&#127775;</span>
+                <span class="marcher-emoji">&#128105;&#127995;&#8205;&#9877;&#65039;</span>
+                <span class="marcher-dept">TEAM 2</span>
+            </div>
+            <!-- SECOND LEPRECHAUN AT THE END -->
+            <div class="parade-leprechaun" style="animation-delay: 10s; z-index: 14;">
+                <div class="leprechaun-body">
+                    <span class="leprechaun-emoji">&#129497;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== ST. PATRICK'S DAY SYMBOLS ========== -->
+        <div class="stpat-section">
+            <div class="stpat-clovers" id="stpatClovers"></div>
+            <div class="stpat-header">
+                <div class="stpat-title">&#9752;&#65039; St. Patrick&rsquo;s Day &#9752;&#65039;</div>
+                <div class="stpat-sub">Icons &amp; Traditions of the Emerald Isle</div>
+                <div class="stpat-rainbow"></div>
+            </div>
+
+            <div class="stpat-grid">
+                <div class="stpat-card">
+                    <div class="stpat-card-number">01</div>
+                    <div class="stpat-card-icon">&#9752;&#65039;</div>
+                    <div class="stpat-card-name">Shamrocks</div>
+                    <div class="stpat-card-desc">The traditional symbol of Ireland &mdash; St. Patrick used it to explain the Holy Trinity. Worn and displayed everywhere on March 17th.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">02</div>
+                    <div class="stpat-card-icon">&#128154;</div>
+                    <div class="stpat-card-name">Green Clothing</div>
+                    <div class="stpat-card-desc">The essential attire to avoid being pinched! Green represents Ireland&rsquo;s lush landscape and national pride.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">03</div>
+                    <div class="stpat-card-icon">&#129497;</div>
+                    <div class="stpat-card-name">Leprechauns</div>
+                    <div class="stpat-card-desc">Mythical Irish fairies known as mischievous cobblers who hide pots of gold at the end of rainbows.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">04</div>
+                    <div class="stpat-card-icon">&#127830;</div>
+                    <div class="stpat-card-name">Corned Beef &amp; Cabbage</div>
+                    <div class="stpat-card-desc">The classic Irish-American feast. Slow-cooked, hearty, and the official meal of March 17th dinner tables nationwide.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">05</div>
+                    <div class="stpat-card-icon">&#127866;</div>
+                    <div class="stpat-card-name">Green Beer</div>
+                    <div class="stpat-card-desc">The festive drink of the day! A few drops of food coloring turn an ordinary pint into a St. Paddy&rsquo;s celebration.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">06</div>
+                    <div class="stpat-card-icon">&#127838;</div>
+                    <div class="stpat-card-name">Irish Soda Bread</div>
+                    <div class="stpat-card-desc">A traditional quick bread made with buttermilk and baking soda. No yeast needed &mdash; dense, rustic, and delicious.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">07</div>
+                    <div class="stpat-card-icon">&#128141;</div>
+                    <div class="stpat-card-name">Bead Necklaces</div>
+                    <div class="stpat-card-desc">Green and gold beads commonly worn at parades and parties. The more layers, the more festive!</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">08</div>
+                    <div class="stpat-card-icon">&#129506;</div>
+                    <div class="stpat-card-name">Top Hats</div>
+                    <div class="stpat-card-desc">Green or leprechaun-themed top hats are the signature accessory. Bonus points if it has a buckle and shamrock.</div>
+                </div>
+                <div class="stpat-card">
+                    <div class="stpat-card-number">09</div>
+                    <div class="stpat-card-icon">&#127932;</div>
+                    <div class="stpat-card-name">Harps</div>
+                    <div class="stpat-card-desc">The official emblem of Ireland &mdash; the only country in the world with a musical instrument as its national symbol.</div>
+                </div>
+                <div class="stpat-card stpat-featured">
+                    <div class="stpat-card-icon">&#127793;</div>
+                    <div class="stpat-card-name">Pot of Gold</div>
+                    <div class="stpat-card-desc">Legend says a leprechaun&rsquo;s pot of gold waits at the end of every rainbow. On Team 2, the real gold is the people you work with every day.</div>
+                </div>
+            </div>
+
+            <div class="stpat-pot">
+                <div class="stpat-pot-visual">&#127752;&#129505;&#127752;</div>
+                <div class="stpat-pot-text">&ldquo;May your troubles be less and your blessings be more.&rdquo;</div>
+            </div>
+        </div>
+
+        <!-- ========== SERVICE LEVELS ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#128200;</span> Service Levels by Department <span class="emoji">&#128201;</span>
+            </div>
+            <div class="section-subtitle">February 2026 Performance</div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-card-dept">Cardiology</div>
+                    <div class="service-card-pct">86.75%</div>
+                    <div class="service-card-label">Avg Service Level</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-dept">Zara</div>
+                    <div class="service-card-pct">79.33%</div>
+                    <div class="service-card-label">Avg Service Level</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-dept">Actium</div>
+                    <div class="service-card-pct">85.05%</div>
+                    <div class="service-card-label">Avg Service Level</div>
+                </div>
+            </div>
+            <div class="service-target">&#127919; Target: 80% Service Level</div>
+        </div>
+
+        <!-- ========== CARDI AI SYSTEM REVEAL ========== -->
+        <div class="cardi-section">
+            <!-- BACKGROUND FLOATING COINS -->
+            <div class="cardi-coins-bg" id="cardiBgCoins"></div>
+            <!-- RAINING COINS -->
+            <div class="cardi-confetti" id="cardiConfetti"></div>
+
+            <div class="cardi-content">
+                <div class="cardi-pre-label">&#128227; Major Announcement &#128227;</div>
+
+                <!-- LOGO -->
+                <div class="cardi-logo-container">
+                    <div class="cardi-logo-ring">
+                        <div class="cardi-logo-inner">
+                            <div class="cardi-logo-text">CARDI</div>
+                            <div class="cardi-logo-ai">AI System</div>
+                        </div>
+                    </div>
+                    <div class="cardi-logo-sparkles">
+                        <span class="cardi-sparkle" style="top:-8px;left:50%;animation-delay:0s;">&#10024;</span>
+                        <span class="cardi-sparkle" style="top:20%;right:-12px;animation-delay:0.5s;">&#10024;</span>
+                        <span class="cardi-sparkle" style="bottom:10%;left:-10px;animation-delay:1s;">&#10024;</span>
+                        <span class="cardi-sparkle" style="bottom:-8px;right:30%;animation-delay:1.5s;">&#10024;</span>
+                        <span class="cardi-sparkle" style="top:30%;left:-8px;animation-delay:0.8s;">&#127775;</span>
+                        <span class="cardi-sparkle" style="top:-5px;right:20%;animation-delay:1.2s;">&#127775;</span>
+                    </div>
+                </div>
+
+                <div class="cardi-title">Say Hello to <span>Cardi</span></div>
+                <div class="cardi-subtitle">Our New AI System Is Here &mdash; And She&rsquo;s Got a Name!</div>
+
+                <!-- WINNER CARD -->
+                <div class="cardi-winner-card">
+                    <div class="cardi-winner-pre">&#127942; Name Contest Winner &#127942;</div>
+                    <div class="cardi-winner-name">&#128081; Tiwanna Phillips &#128081;</div>
+                    <div class="cardi-winner-note">Proposed the winning name &ldquo;Cardi&rdquo;</div>
+                </div>
+
+                <div style="margin-bottom:25px;">
+                    <div style="display:inline-flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                        <span style="background:rgba(52,211,153,0.15);color:#34d399;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid rgba(52,211,153,0.25);">&#129302; AI-Powered</span>
+                        <span style="background:rgba(245,158,11,0.15);color:#fbbf24;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid rgba(245,158,11,0.25);">&#9889; Smart Workflows</span>
+                        <span style="background:rgba(124,58,237,0.15);color:#a78bfa;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid rgba(124,58,237,0.25);">&#128202; Better Patient Care</span>
+                        <span style="background:rgba(244,63,94,0.15);color:#fb7185;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1px solid rgba(244,63,94,0.25);">&#127775; Team 2 Ready</span>
+                    </div>
+                </div>
+
+                <div class="cardi-desc">
+                    Congratulations to <strong>Tiwanna Phillips</strong> for naming our new AI system! <strong>Cardi</strong> is here to help Team 2 work smarter, faster, and with even more precision. A new era of patient care technology starts now. &#128154;
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== QA ALL-STARS ========== -->
+        <div class="section" style="background: linear-gradient(135deg, #0f172a, #1e293b); border-bottom-color: #334155;">
+            <div class="section-title" style="color: white;">
+                <span class="emoji">&#127942;</span> QA All-Stars &mdash; Cardio <span class="emoji">&#11088;</span>
+            </div>
+            <div class="section-subtitle" style="color: rgba(255,255,255,0.4);">Top Performers Above 95% &bull; February 2026</div>
+            
+            <!-- 100% CLUB -->
+            <div style="text-align:center;margin-bottom:18px;">
+                <span style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0f172a;font-weight:800;font-size:12px;padding:6px 20px;border-radius:30px;letter-spacing:2px;text-transform:uppercase;">&#128081; 100% Club &#128081;</span>
+            </div>
+            <div class="allstars-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:20px;">
+                <div class="allstar-card" style="background:linear-gradient(135deg,#422006,#78350f);border:2px solid #f59e0b;">
+                    <div class="allstar-avatar" style="background:linear-gradient(135deg,#fbbf24,#b45309);box-shadow:0 0 25px rgba(245,158,11,0.4);">&#128081;</div>
+                    <div class="allstar-name" style="color:#fcd34d;">Kiara M.</div>
+                    <div class="allstar-score" style="color:#fbbf24;font-size:26px;">100%</div>
+                    <div class="allstar-label" style="color:rgba(255,255,255,0.4);">Perfect Score</div>
+                </div>
+                <div class="allstar-card" style="background:linear-gradient(135deg,#422006,#78350f);border:2px solid #f59e0b;">
+                    <div class="allstar-avatar" style="background:linear-gradient(135deg,#fbbf24,#b45309);box-shadow:0 0 25px rgba(245,158,11,0.4);">&#128081;</div>
+                    <div class="allstar-name" style="color:#fcd34d;">Catrice J.</div>
+                    <div class="allstar-score" style="color:#fbbf24;font-size:26px;">100%</div>
+                    <div class="allstar-label" style="color:rgba(255,255,255,0.4);">Perfect Score</div>
+                </div>
+            </div>
+
+            <!-- 97% TIER -->
+            <div style="text-align:center;margin-bottom:14px;">
+                <span style="display:inline-block;background:rgba(52,211,153,0.15);color:#34d399;font-weight:700;font-size:11px;padding:5px 16px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(52,211,153,0.3);">&#128293; 97% Tier &#128293;</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#129351;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Alicia J.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#128170;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">June L.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#127775;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Keshia S.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#11088;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Steph R.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#128588;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Taniah M.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#128171;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Timeka J.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px 10px;text-align:center;border:1px solid rgba(52,211,153,0.15);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:28px;margin-bottom:6px;">&#127752;</div>
+                    <div style="color:white;font-weight:700;font-size:13px;">Twashia</div>
+                    <div style="font-family:'Space Mono',monospace;color:#34d399;font-size:18px;font-weight:700;">97%</div>
+                </div>
+            </div>
+
+            <!-- 95% TIER -->
+            <div style="text-align:center;margin-bottom:14px;">
+                <span style="display:inline-block;background:rgba(167,139,250,0.15);color:#a78bfa;font-weight:700;font-size:11px;padding:5px 16px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(167,139,250,0.3);">&#128156; 95% Tier &#128156;</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+                <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(167,139,250,0.12);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:24px;margin-bottom:4px;">&#127793;</div>
+                    <div style="color:rgba(255,255,255,0.8);font-weight:600;font-size:12px;">Genesis</div>
+                    <div style="font-family:'Space Mono',monospace;color:#a78bfa;font-size:16px;font-weight:700;">95%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(167,139,250,0.12);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:24px;margin-bottom:4px;">&#127800;</div>
+                    <div style="color:rgba(255,255,255,0.8);font-weight:600;font-size:12px;">Kathlene L.</div>
+                    <div style="font-family:'Space Mono',monospace;color:#a78bfa;font-size:16px;font-weight:700;">95%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(167,139,250,0.12);transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:24px;margin-bottom:4px;">&#9752;&#65039;</div>
+                    <div style="color:rgba(255,255,255,0.8);font-weight:600;font-size:12px;">Tiwanna</div>
+                    <div style="font-family:'Space Mono',monospace;color:#a78bfa;font-size:16px;font-weight:700;">95%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== CALL PERFORMANCE ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#128222;</span> Top Call Performers <span class="emoji">&#127775;</span>
+            </div>
+            <div class="allstars-grid">
+                <div class="allstar-card" style="border-color: #bae6fd; background: linear-gradient(135deg, #f0f9ff, #e0f2fe);">
+                    <div class="allstar-rank">Cardio</div>
+                    <div class="allstar-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">&#128242;</div>
+                    <div class="allstar-name">Jennifer G.</div>
+                    <div class="allstar-score" style="color: #0284c7;">&#127942; Top Caller</div>
+                    <div class="allstar-label">Most Calls Taken</div>
+                </div>
+                <div class="allstar-card" style="border-color: #bae6fd; background: linear-gradient(135deg, #f0f9ff, #e0f2fe);">
+                    <div class="allstar-rank">Zara</div>
+                    <div class="allstar-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">&#128241;</div>
+                    <div class="allstar-name">Ebony L.</div>
+                    <div class="allstar-score" style="color: #0284c7;">&#127942; Top Caller</div>
+                    <div class="allstar-label">Most Calls Taken</div>
+                </div>
+                <div class="allstar-card" style="border-color: #bae6fd; background: linear-gradient(135deg, #f0f9ff, #e0f2fe);">
+                    <div class="allstar-rank">Actium</div>
+                    <div class="allstar-avatar" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">&#128222;</div>
+                    <div class="allstar-name">Annabela</div>
+                    <div class="allstar-score" style="color: #0284c7;">&#127942; Top Caller</div>
+                    <div class="allstar-label">Most Calls Taken</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== CAKE DAYS ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#127874;</span> March Birthdays <span class="emoji">&#127874;</span>
+            </div>
+            <div class="birthday-grid">
+                <div class="birthday-card">
+                    <div class="birthday-cake">&#127874;</div>
+                    <div class="birthday-name">Ebony Lane</div>
+                    <div class="birthday-date">March 2</div>
+                </div>
+                <div class="birthday-card">
+                    <div class="birthday-cake">&#127880;</div>
+                    <div class="birthday-name">Claudia Vega</div>
+                    <div class="birthday-date">March 6</div>
+                </div>
+                <div class="birthday-card">
+                    <div class="birthday-cake">&#127881;</div>
+                    <div class="birthday-name">Misty Winters</div>
+                    <div class="birthday-date">March 8</div>
+                </div>
+                <div class="birthday-card">
+                    <div class="birthday-cake">&#127882;</div>
+                    <div class="birthday-name">Jennifer Gil</div>
+                    <div class="birthday-date">March 12</div>
+                </div>
+                <div class="birthday-card">
+                    <div class="birthday-cake">&#127856;</div>
+                    <div class="birthday-name">Melanie Novo</div>
+                    <div class="birthday-date">March 27</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== HOROSCOPES ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#128302;</span> March Birthday Horoscopes <span class="emoji">&#10024;</span>
+            </div>
+            <div class="horoscope-grid">
+                <div class="horoscope-card">
+                    <div class="horoscope-sign">&#9811;</div>
+                    <div class="horoscope-name">Pisces</div>
+                    <div class="horoscope-dates">Feb 19 &ndash; Mar 20</div>
+                    <div class="horoscope-text">March brings a wave of creative energy your way. Your intuition is sharper than ever &mdash; trust those gut feelings at work. A surprise recognition could be heading your way mid-month.</div>
+                </div>
+                <div class="horoscope-card">
+                    <div class="horoscope-sign">&#9800;</div>
+                    <div class="horoscope-name">Aries</div>
+                    <div class="horoscope-dates">Mar 21 &ndash; Apr 19</div>
+                    <div class="horoscope-text">Spring is your season, Aries! Bold moves pay off this month. Take that leadership step you&rsquo;ve been eyeing. The stars say your energy will inspire everyone around you.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MILESTONES ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#127942;</span> Career Milestones <span class="emoji">&#11088;</span>
+            </div>
+            <div class="section-subtitle">Celebrating Years of Dedication</div>
+            <div class="allstars-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="allstar-card" style="border-color: #c4b5fd; background: linear-gradient(135deg, #f5f3ff, #ede9fe);">
+                    <div class="allstar-avatar" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">&#127881;</div>
+                    <div class="allstar-name">Catrice Johnson</div>
+                    <div class="allstar-score" style="color: var(--plum);">5 Years</div>
+                    <div class="allstar-label">March 8 &bull; HM Anniversary</div>
+                </div>
+                <div class="allstar-card" style="border-color: #c4b5fd; background: linear-gradient(135deg, #f5f3ff, #ede9fe);">
+                    <div class="allstar-avatar" style="background: linear-gradient(135deg, #a78bfa, #7c3aed);">&#127942;</div>
+                    <div class="allstar-name">Ebony Lane</div>
+                    <div class="allstar-score" style="color: var(--plum);">2 Years</div>
+                    <div class="allstar-label">March 11 &bull; HM Anniversary</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== IMPORTANT DATES ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#128197;</span> Important Dates &amp; Events <span class="emoji">&#128198;</span>
+            </div>
+            <ul class="dates-list">
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">1</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#127891; Scholarship Applications Open</div><div class="dates-info-desc">Applications for Scholarship for Employees&rsquo; Children now available</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">4</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#128187; Patient Access Training</div><div class="dates-info-desc">Ancillary test scheduling training &mdash; mandatory attendance</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">8</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#127775; International Women&rsquo;s Day</div><div class="dates-info-desc">Celebrating all the amazing women on Team 2!</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">8</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#9200; Daylight Saving Time Begins</div><div class="dates-info-desc">Spring forward! Set your clocks ahead 1 hour Saturday night</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">14</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#127829; Pi Day</div><div class="dates-info-desc">3.14 &mdash; bring pie, eat pie, celebrate math!</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">17</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#9752;&#65039; St. Patrick&rsquo;s Day</div><div class="dates-info-desc">Wear green or get pinched!</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">19</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#127936; March Madness Round 1</div><div class="dates-info-desc">NCAA Tournament tips off &mdash; bracket busters incoming!</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">20</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title">&#127800; First Day of Spring</div><div class="dates-info-desc">New season, fresh energy, same incredible team</div></div>
+                </li>
+                <li class="dates-item">
+                    <div class="dates-day"><div class="dates-day-num">26</div><div class="dates-day-month">Mar</div></div>
+                    <div><div class="dates-info-title" style="color:#dc2626;">&#128205; Team Engagement &mdash; ON SITE REQUIRED</div><div class="dates-info-desc" style="font-weight:600;">All agents must be on site. No exceptions.</div></div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========== WELCOME NEW TEAM MEMBERS ========== -->
+        <div class="section" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-bottom-color: #a7f3d0;">
+            <div class="section-title">
+                <span class="emoji">&#128075;</span> Welcome to the Team! <span class="emoji">&#127881;</span>
+            </div>
+            <div class="section-subtitle">New Faces Joining Team 2 &mdash; March 2026</div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+                <div style="background:white;border-radius:14px;padding:22px 18px;text-align:center;border:2px solid #86efac;transition:transform 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:40px;margin-bottom:8px;">&#128105;&#127999;</div>
+                    <div style="font-weight:800;font-size:16px;color:#0f172a;">Daja Watts</div>
+                    <div style="font-size:12px;color:#059669;font-weight:600;margin-top:4px;">Welcome aboard!</div>
+                </div>
+                <div style="background:white;border-radius:14px;padding:22px 18px;text-align:center;border:2px solid #86efac;transition:transform 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:40px;margin-bottom:8px;">&#128105;&#127997;</div>
+                    <div style="font-weight:800;font-size:16px;color:#0f172a;">Alejandra Green</div>
+                    <div style="font-size:12px;color:#059669;font-weight:600;margin-top:4px;">Welcome aboard!</div>
+                </div>
+                <div style="background:white;border-radius:14px;padding:22px 18px;text-align:center;border:2px solid #86efac;transition:transform 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:40px;margin-bottom:8px;">&#128105;&#127996;</div>
+                    <div style="font-weight:800;font-size:16px;color:#0f172a;">Claudia Vega</div>
+                    <div style="font-size:12px;color:#059669;font-weight:600;margin-top:4px;">Welcome aboard!</div>
+                </div>
+                <div style="background:white;border-radius:14px;padding:22px 18px;text-align:center;border:2px solid #86efac;transition:transform 0.3s;box-shadow:0 2px 10px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:40px;margin-bottom:8px;">&#128105;&#127998;</div>
+                    <div style="font-weight:800;font-size:16px;color:#0f172a;">Tiffany Peters</div>
+                    <div style="font-size:12px;color:#059669;font-weight:600;margin-top:4px;">Welcome aboard!</div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:18px;padding:12px;background:rgba(5,150,105,0.08);border-radius:10px;">
+                <span style="font-size:14px;color:#065f46;font-weight:600;">&#128154; Team 2 is growing stronger every month! &#128154;</span>
+            </div>
+        </div>
+
+        <!-- ========== ANNOUNCEMENTS & EVENTS ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#128227;</span> Announcements &amp; Upcoming Events <span class="emoji">&#128227;</span>
+            </div>
+            <div class="announce-card" style="border-color:#fde68a;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
+                <div class="announce-title" style="color:#92400e;">&#127891; Scholarship for Employees&rsquo; Children</div>
+                <div class="announce-text" style="color:#78350f;">Applications open <strong>March 1</strong>. If you have children heading to college, don&rsquo;t miss this opportunity! Check with HR for details and deadlines.</div>
+            </div>
+            <div class="announce-card">
+                <div class="announce-title">&#128187; Patient Access Training &mdash; Ancillary Test Scheduling</div>
+                <div class="announce-text">Mandatory training on <strong>March 4 (03/04)</strong>. Make sure you&rsquo;re prepared and on time. This covers the updated ancillary test scheduling workflow.</div>
+            </div>
+            <div class="announce-card" style="border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fee2e2);">
+                <div class="announce-title" style="color:#991b1b;">&#128205; Team Engagement &mdash; ALL AGENTS ON SITE</div>
+                <div class="announce-text" style="color:#7f1d1d;"><strong>March 26, 2026</strong> &mdash; Team engagement day. All agents will be required on site. No exceptions. Mark your calendars now!</div>
+            </div>
+            <div class="announce-card">
+                <div class="announce-title">&#9200; Daylight Saving Time Reminder</div>
+                <div class="announce-text"><strong>March 8</strong> &mdash; Spring forward! Set your clocks ahead 1 hour before bed on Saturday night. Don&rsquo;t be late Monday morning.</div>
+            </div>
+        </div>
+
+        <!-- ========== COUNTDOWN TIMER ========== -->
+        <div class="countdown-section">
+            <div class="countdown-label">&#128680; Mark Your Calendar &#128680;</div>
+            <div class="countdown-event">Team Engagement Day &mdash; ALL AGENTS ON SITE</div>
+            <div class="countdown-boxes">
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cd-days">--</div>
+                    <div class="countdown-unit">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cd-hours">--</div>
+                    <div class="countdown-unit">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cd-mins">--</div>
+                    <div class="countdown-unit">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cd-secs">--</div>
+                    <div class="countdown-unit">Seconds</div>
+                </div>
+            </div>
+            <div class="countdown-note">&#128205; March 26, 2026 &bull; No Exceptions &bull; Be There</div>
+        </div>
+
+        <!-- ========== KUDOS CORNER ========== -->
+        <div class="section kudos-section">
+            <div class="section-title">
+                <span class="emoji">&#127775;</span> Kudos Corner <span class="emoji">&#127775;</span>
+            </div>
+            <div class="section-subtitle">Shout-Outs for Going Above &amp; Beyond</div>
+            <div class="kudos-card">
+                <div class="kudos-to">&#11088; The Entire Team 2 Family &#11088;</div>
+                <div class="kudos-text">Every single one of you showed up this month. Not just physically &mdash; you showed up for each other. You covered shifts without being asked. You calmed patients who were frustrated before they even finished their sentence. You trained new hires with patience and grace. You hit your numbers while still finding time to check on a teammate having a rough day. That&rsquo;s not just doing a job &mdash; that&rsquo;s building something special. This team doesn&rsquo;t just work together. We carry each other. And that&rsquo;s why Team 2 hits different.</div>
+                <div class="kudos-from">&mdash; With respect and appreciation, Team 2 Leadership</div>
+            </div>
+            <div class="kudos-card">
+                <div class="kudos-to">&#128154; A Reminder You Might Need Today &#128154;</div>
+                <div class="kudos-text">The calls you answer matter. The patience you show matters. The extra minute you spend making sure a patient feels heard &mdash; that matters more than any metric on a screen. You are the reason someone&rsquo;s worst day got a little better. Don&rsquo;t ever forget that. Spring is here, and so is your moment to bloom. Keep pushing. Keep growing. Keep being exactly who you are &mdash; because Team 2 doesn&rsquo;t work without YOU.</div>
+                <div class="kudos-from">&mdash; From your Team 2 family &#127793;</div>
+            </div>
+        </div>
+
+        <!-- ========== WELLNESS CORNER ========== -->
+        <div class="section wellness-section">
+            <div class="section-title">
+                <span class="emoji">&#129528;</span> Spring Wellness Corner <span class="emoji">&#127793;</span>
+            </div>
+            <div class="wellness-tips">
+                <div class="wellness-tip">
+                    <div class="wellness-tip-icon">&#128167;</div>
+                    <div class="wellness-tip-title">Hydrate More</div>
+                    <div class="wellness-tip-text">Houston heat is coming. Start building the habit now &mdash; aim for 64oz daily. Your body and brain will thank you.</div>
+                </div>
+                <div class="wellness-tip">
+                    <div class="wellness-tip-icon">&#127774;</div>
+                    <div class="wellness-tip-title">Get Outside</div>
+                    <div class="wellness-tip-text">Even 10 minutes of sun during lunch boosts your mood and Vitamin D. The weather is perfect right now!</div>
+                </div>
+                <div class="wellness-tip">
+                    <div class="wellness-tip-icon">&#128164;</div>
+                    <div class="wellness-tip-title">Sleep Hygiene</div>
+                    <div class="wellness-tip-text">Daylight Saving hits March 9. Start adjusting bedtime 15 min earlier this week to avoid the &ldquo;spring tired.&rdquo;</div>
+                </div>
+                <div class="wellness-tip">
+                    <div class="wellness-tip-icon">&#128170;</div>
+                    <div class="wellness-tip-title">Stretch It Out</div>
+                    <div class="wellness-tip-text">Desk workers: stand up every 45 minutes. Roll your shoulders, stretch your wrists. Small moves, big impact.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== FUN NATIONAL DAYS ========== -->
+        <div class="section">
+            <div class="section-title">
+                <span class="emoji">&#127881;</span> March National Days <span class="emoji">&#127881;</span>
+            </div>
+            <div class="fundays-grid">
+                <div class="funday">
+                    <div class="funday-icon">&#128221;</div>
+                    <div class="funday-name">Employee Appreciation Day</div>
+                    <div class="funday-date">Mar 6</div>
+                </div>
+                <div class="funday">
+                    <div class="funday-icon">&#129384;</div>
+                    <div class="funday-name">National Napping Day</div>
+                    <div class="funday-date">Mar 10</div>
+                </div>
+                <div class="funday">
+                    <div class="funday-icon">&#127829;</div>
+                    <div class="funday-name">National Pi Day</div>
+                    <div class="funday-date">Mar 14</div>
+                </div>
+                <div class="funday">
+                    <div class="funday-icon">&#9752;&#65039;</div>
+                    <div class="funday-name">St. Patrick&rsquo;s Day</div>
+                    <div class="funday-date">Mar 17</div>
+                </div>
+                <div class="funday">
+                    <div class="funday-icon">&#128516;</div>
+                    <div class="funday-name">Intl Day of Happiness</div>
+                    <div class="funday-date">Mar 20</div>
+                </div>
+                <div class="funday">
+                    <div class="funday-icon">&#127849;</div>
+                    <div class="funday-name">National Waffle Day</div>
+                    <div class="funday-date">Mar 25</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== RECIPE CORNER ========== -->
+        <div class="section recipe-section">
+            <div class="section-title">
+                <span class="emoji">&#127859;</span> St. Patrick&rsquo;s Recipe Corner <span class="emoji">&#9752;&#65039;</span>
+            </div>
+            <div class="recipe-card-main">
+                <div class="recipe-header-bar">
+                    <div class="recipe-header-icon">&#127838;</div>
+                    <div class="recipe-header-info">
+                        <h4>Classic Irish Soda Bread</h4>
+                        <span>A traditional St. Patrick&rsquo;s Day staple &mdash; no yeast, no waiting, just warmth</span>
+                    </div>
+                </div>
+                <div class="recipe-body">
+                    <div class="recipe-meta">
+                        <div class="recipe-meta-item">
+                            <div class="recipe-meta-icon">&#9200;</div>
+                            <div class="recipe-meta-val">10 min</div>
+                            <div class="recipe-meta-label">Prep</div>
+                        </div>
+                        <div class="recipe-meta-item">
+                            <div class="recipe-meta-icon">&#128293;</div>
+                            <div class="recipe-meta-val">45 min</div>
+                            <div class="recipe-meta-label">Bake</div>
+                        </div>
+                        <div class="recipe-meta-item">
+                            <div class="recipe-meta-icon">&#127860;</div>
+                            <div class="recipe-meta-val">8</div>
+                            <div class="recipe-meta-label">Servings</div>
+                        </div>
+                        <div class="recipe-meta-item">
+                            <div class="recipe-meta-icon">&#11088;</div>
+                            <div class="recipe-meta-val">Easy</div>
+                            <div class="recipe-meta-label">Level</div>
+                        </div>
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h5>&#9752;&#65039; Ingredients</h5>
+                        <ul>
+                            <li>4 cups all-purpose flour</li>
+                            <li>1 tsp baking soda</li>
+                            <li>1 tsp salt</li>
+                            <li>1&frac34; cups buttermilk</li>
+                            <li>2 tbsp sugar (optional)</li>
+                            <li>1 cup raisins (optional)</li>
+                            <li>2 tbsp butter, melted</li>
+                            <li>1 egg, lightly beaten</li>
+                        </ul>
+                    </div>
+                    <div class="recipe-steps">
+                        <h5>&#127859; Directions</h5>
+                        <ol>
+                            <li><strong>Preheat</strong> oven to 375&deg;F (190&deg;C). Lightly grease a baking sheet or cast iron skillet.</li>
+                            <li><strong>Mix dry:</strong> Whisk together flour, baking soda, salt, and sugar in a large bowl.</li>
+                            <li><strong>Add wet:</strong> Make a well in the center. Pour in buttermilk, melted butter, and egg. Stir until just combined &mdash; don&rsquo;t overmix! Fold in raisins if using.</li>
+                            <li><strong>Shape:</strong> Turn dough onto a floured surface. Shape into a round loaf about 7 inches across. Place on baking sheet. Cut a deep X across the top (tradition says it lets the fairies out).</li>
+                            <li><strong>Bake:</strong> 40&ndash;45 minutes until golden brown and hollow-sounding when tapped on the bottom.</li>
+                            <li><strong>Serve:</strong> Let cool slightly. Slice thick, slather with butter, and enjoy with your St. Patrick&rsquo;s Day meal!</li>
+                        </ol>
+                    </div>
+                    <div style="background:#f0fdf4;border-radius:10px;padding:12px 16px;margin-top:15px;font-size:12px;color:#065f46;">
+                        <strong>&#128161; Pro tip:</strong> The X on top isn&rsquo;t just decorative &mdash; it helps the heat penetrate the thick loaf evenly. And yes, Irish grandmas really do say it &ldquo;lets the fairies out.&rdquo; &#129497;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MARCH: THE MONTH EXPLAINED ========== -->
+        <div class="section" style="background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 50%,#fff7ed 100%);border-bottom-color:#fde68a;padding:40px 30px;">
+            <div class="section-title" style="justify-content:center;">
+                <span class="emoji">&#128218;</span> The Story of March <span class="emoji">&#127793;</span>
+            </div>
+            <div style="text-align:center;margin-bottom:25px;">
+                <span style="font-size:13px;color:#92400e;letter-spacing:3px;text-transform:uppercase;font-weight:600;">History &bull; Science &bull; Culture &bull; Tradition</span>
+            </div>
+
+            <!-- HERO FACT: SPRING EQUINOX -->
+            <div style="background:linear-gradient(135deg,#064e3b,#065f46);border-radius:18px;padding:30px 25px;margin-bottom:22px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 80% 30%,rgba(52,211,153,0.15),transparent 50%);"></div>
+                <div style="display:flex;align-items:center;gap:20px;position:relative;z-index:2;">
+                    <div style="font-size:64px;flex-shrink:0;animation:quoteFloat 3s ease-in-out infinite;">&#127774;</div>
+                    <div>
+                        <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#4ade80;margin-bottom:6px;">The Spring (Vernal) Equinox</div>
+                        <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6;">Falling around <strong style="color:#fcd34d;">March 20&ndash;21</strong>, this marks the official start of spring in the Northern Hemisphere. Day and night are nearly equal in length &mdash; a cosmic reset. After this, the days get longer and the world comes alive again.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DUAL FACTS ROW -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+                <!-- MARS / NAME ORIGIN -->
+                <div style="background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:14px;padding:22px 18px;border:1px solid #334155;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:38px;margin-bottom:8px;">&#9876;&#65039;</div>
+                    <div style="font-weight:800;font-size:15px;color:#f87171;margin-bottom:6px;">Named After Mars</div>
+                    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.5;">March is named after <em>Mars</em>, the Roman god of war. It historically marked the beginning of the war season and was the <strong style="color:#fbbf24;">first month</strong> of the ancient Roman calendar.</div>
+                </div>
+                <!-- IDES OF MARCH -->
+                <div style="background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:14px;padding:22px 18px;border:1px solid #334155;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:38px;margin-bottom:8px;">&#128225;</div>
+                    <div style="font-weight:800;font-size:15px;color:#f87171;margin-bottom:6px;">The Ides of March</div>
+                    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.5;"><strong style="color:#fbbf24;">March 15, 44 B.C.</strong> &mdash; the day Julius Caesar was assassinated by members of the Roman Senate. Shakespeare made &ldquo;Beware the Ides of March&rdquo; legendary.</div>
+                </div>
+            </div>
+
+            <!-- CELEBRATIONS STRIP -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;">
+                <!-- IWD -->
+                <div style="background:linear-gradient(135deg,#7c3aed,#6d28d9);border-radius:14px;padding:18px 12px;text-align:center;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:6px;">&#128156;</div>
+                    <div style="font-weight:800;font-size:12px;color:white;line-height:1.3;">Int&rsquo;l Women&rsquo;s Day</div>
+                    <div style="font-family:'Space Mono',monospace;font-size:11px;color:#c4b5fd;margin-top:4px;">Mar 8</div>
+                </div>
+                <!-- PI DAY -->
+                <div style="background:linear-gradient(135deg,#0369a1,#075985);border-radius:14px;padding:18px 12px;text-align:center;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:6px;">&#127829;</div>
+                    <div style="font-weight:800;font-size:12px;color:white;line-height:1.3;">Pi Day / Einstein B-Day</div>
+                    <div style="font-family:'Space Mono',monospace;font-size:11px;color:#7dd3fc;margin-top:4px;">Mar 14</div>
+                </div>
+                <!-- ST PATS -->
+                <div style="background:linear-gradient(135deg,#059669,#047857);border-radius:14px;padding:18px 12px;text-align:center;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:6px;">&#9752;&#65039;</div>
+                    <div style="font-weight:800;font-size:12px;color:white;line-height:1.3;">St. Patrick&rsquo;s Day</div>
+                    <div style="font-family:'Space Mono',monospace;font-size:11px;color:#6ee7b7;margin-top:4px;">Mar 17</div>
+                </div>
+                <!-- MARCH MADNESS -->
+                <div style="background:linear-gradient(135deg,#c2410c,#9a3412);border-radius:14px;padding:18px 12px;text-align:center;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:6px;">&#127936;</div>
+                    <div style="font-weight:800;font-size:12px;color:white;line-height:1.3;">March Madness</div>
+                    <div style="font-family:'Space Mono',monospace;font-size:11px;color:#fed7aa;margin-top:4px;">Mid-Mar</div>
+                </div>
+            </div>
+
+            <!-- BOTTOM ROW: WOMEN'S HISTORY + DST + NATURE -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+                <!-- WOMEN'S HISTORY MONTH -->
+                <div style="background:linear-gradient(135deg,#fdf2f8,#fce7f3);border-radius:14px;padding:20px 16px;border:1px solid #fbcfe8;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:8px;">&#128105;&#127998;&#8205;&#9877;&#65039;</div>
+                    <div style="font-weight:800;font-size:14px;color:#9d174d;margin-bottom:4px;">Women&rsquo;s History Month</div>
+                    <div style="font-size:12px;color:#6b7280;line-height:1.5;">The entire month honors the contributions of women to history and society. Started as a week-long celebration in 1978, expanded to a full month in 1987.</div>
+                </div>
+                <!-- DAYLIGHT SAVING -->
+                <div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:14px;padding:20px 16px;border:1px solid #bfdbfe;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:8px;">&#9200;</div>
+                    <div style="font-weight:800;font-size:14px;color:#1e40af;margin-bottom:4px;">Daylight Saving Time</div>
+                    <div style="font-size:12px;color:#6b7280;line-height:1.5;">Clocks &ldquo;spring forward&rdquo; one hour, giving us more evening daylight. Originally proposed by Benjamin Franklin in 1784 &mdash; as a joke.</div>
+                </div>
+                <!-- NATURE / GARDENING -->
+                <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:14px;padding:20px 16px;border:1px solid #bbf7d0;transition:transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="font-size:32px;margin-bottom:8px;">&#127793;</div>
+                    <div style="font-weight:800;font-size:14px;color:#166534;margin-bottom:4px;">Nature &amp; Gardening</div>
+                    <div style="font-size:12px;color:#6b7280;line-height:1.5;">Known for &ldquo;in like a lion, out like a lamb&rdquo; weather. March 12 is National Plant a Flower Day &mdash; the perfect time to start planting!</div>
+                </div>
+            </div>
+
+            <!-- FUN FACT FOOTER -->
+            <div style="text-align:center;margin-top:20px;padding:14px 20px;background:rgba(245,158,11,0.1);border-radius:12px;border:1px dashed #f59e0b;">
+                <span style="font-size:13px;color:#92400e;font-weight:600;">&#128161; Fun Fact: Pi Day (3/14) is also Albert Einstein&rsquo;s birthday. He was born in 1879 in Ulm, Germany. Math + genius = same day. &#128161;</span>
+            </div>
+        </div>
+
+        <!-- ========== TRIVIA ========== -->
+        <div class="section trivia-section">
+            <div class="section-title" style="color: white;">
+                <span class="emoji">&#129504;</span> March Trivia <span class="emoji">&#10067;</span>
+            </div>
+            <div class="trivia-card" onclick="this.classList.toggle('revealed')">
+                <div class="trivia-q">Q: What does the name &ldquo;March&rdquo; come from?</div>
+                <div class="trivia-a">&#127775; Mars, the Roman god of war. In the ancient Roman calendar, March (Martius) was the first month of the year!</div>
+            </div>
+            <div class="trivia-card" onclick="this.classList.toggle('revealed')">
+                <div class="trivia-q">Q: What is the only NCAA tournament seed to have NEVER won a championship?</div>
+                <div class="trivia-a">&#127936; A #9 seed has never won the NCAA tournament. The lowest seed to win it all was #8 Villanova in 1985.</div>
+            </div>
+            <div class="trivia-card" onclick="this.classList.toggle('revealed')">
+                <div class="trivia-q">Q: What famous phrase is associated with March?</div>
+                <div class="trivia-a">&#129409; &ldquo;In like a lion, out like a lamb&rdquo; &mdash; referring to March starting with harsh weather and ending mild!</div>
+            </div>
+            <div class="trivia-card" onclick="this.classList.toggle('revealed')">
+                <div class="trivia-q">Q: How many gallons of green dye does Chicago use to dye their river for St. Patrick&rsquo;s Day?</div>
+                <div class="trivia-a">&#9752;&#65039; About 40 pounds of vegetable-based dye! The tradition started in 1962 and the river stays green for about 5 hours.</div>
+            </div>
+            <div class="trivia-hint">&#128072; Click a question to reveal the answer!</div>
+        </div>
+
+        <!-- ========== NEW HIRE TIPS ========== -->
+        <div class="section newhire-questions">
+            <div class="section-title">
+                <span class="emoji">&#128218;</span> Pro Tips: Questions for New Hires <span class="emoji">&#128161;</span>
+            </div>
+            <div class="section-subtitle">Smart Questions to Set Yourself Up for Success</div>
+            <div class="question-item">
+                <div class="question-cat">Employment Status</div>
+                &ldquo;Can you confirm whether my position is permanent, seasonal, or temp-to-hire?&rdquo;
+            </div>
+            <div class="question-item">
+                <div class="question-cat">Training</div>
+                &ldquo;How long is the full training period and what benchmarks do I need to demonstrate?&rdquo;
+            </div>
+            <div class="question-item">
+                <div class="question-cat">Growth</div>
+                &ldquo;After training, when am I eligible to move to another department or position?&rdquo;
+            </div>
+            <div class="question-item">
+                <div class="question-cat">Performance</div>
+                &ldquo;What does success in this role look like within the first 30, 60, and 90 days?&rdquo;
+            </div>
+            <div class="question-item">
+                <div class="question-cat">Schedule</div>
+                &ldquo;What does the typical weekly schedule look like, and how much flexibility is there?&rdquo;
+            </div>
+        </div>
+
+        <!-- ========== SPOTIFY ========== -->
+        <div class="section" style="background: #000;">
+            <div class="spotify-embed">
+                <div class="spotify-title">&#127925; Team 2 Spring Playlist &#127925;</div>
+                <div class="spotify-sub">Fresh vibes for fresh starts</div>
+                <div class="spotify-tracks">
+                    <div class="spotify-track">
+                        <span class="spotify-track-num">1</span>
+                        <div class="spotify-track-info"><div class="spotify-track-name">Here Comes the Sun</div><div class="spotify-track-artist">The Beatles</div></div>
+                        <span class="spotify-track-dur">3:05</span>
+                    </div>
+                    <div class="spotify-track">
+                        <span class="spotify-track-num">2</span>
+                        <div class="spotify-track-info"><div class="spotify-track-name">Lovely Day</div><div class="spotify-track-artist">Bill Withers</div></div>
+                        <span class="spotify-track-dur">4:15</span>
+                    </div>
+                    <div class="spotify-track">
+                        <span class="spotify-track-num">3</span>
+                        <div class="spotify-track-info"><div class="spotify-track-name">Walking on Sunshine</div><div class="spotify-track-artist">Katrina and the Waves</div></div>
+                        <span class="spotify-track-dur">3:58</span>
+                    </div>
+                    <div class="spotify-track">
+                        <span class="spotify-track-num">4</span>
+                        <div class="spotify-track-info"><div class="spotify-track-name">Good as Hell</div><div class="spotify-track-artist">Lizzo</div></div>
+                        <span class="spotify-track-dur">2:39</span>
+                    </div>
+                    <div class="spotify-track">
+                        <span class="spotify-track-num">5</span>
+                        <div class="spotify-track-info"><div class="spotify-track-name">Three Little Birds</div><div class="spotify-track-artist">Bob Marley</div></div>
+                        <span class="spotify-track-dur">3:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== CINEMATIC CLOSER ========== -->
+    <div class="cinematic-section">
+        <div class="cinematic-stars" id="cinematicStars"></div>
+        <div class="cinematic-content">
+            <div class="cinematic-pre">Houston Methodist &bull; Team 2</div>
+            <div class="cinematic-title">Spring Into<br>Greatness</div>
+            <div class="cinematic-subtitle">A new season starts now.</div>
+            <div class="cinematic-stats">
+                <div class="cinematic-stat">
+                    <div class="cinematic-stat-num">12</div>
+                    <div class="cinematic-stat-label">QA Stars 95%+</div>
+                </div>
+                <div class="cinematic-stat">
+                    <div class="cinematic-stat-num">4</div>
+                    <div class="cinematic-stat-label">New Team Members</div>
+                </div>
+                <div class="cinematic-stat">
+                    <div class="cinematic-stat-num">5</div>
+                    <div class="cinematic-stat-label">March Birthdays</div>
+                </div>
+                <div class="cinematic-stat">
+                    <div class="cinematic-stat-num">2</div>
+                    <div class="cinematic-stat-label">Milestones</div>
+                </div>
+            </div>
+            <div class="cinematic-divider"></div>
+            <div class="cinematic-message">
+                Every call answered. Every patient cared for. Every teammate supported.<br>
+                That&rsquo;s not a job &mdash; that&rsquo;s a legacy.<br>
+                <strong style="color:var(--gold-light);">March is ours. Let&rsquo;s go.</strong>
+            </div>
+            <div class="cinematic-badge">&#128154; Team 2 Strong &#128154;</div>
+        </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <div class="footer" style="padding-bottom:90px;">
+        <div class="footer-message">Spring Into Greatness, Team 2!</div>
+        <div class="footer-sub">New season. Same fire. Let&rsquo;s make March legendary.</div>
+        <div class="footer-team">Houston Methodist &bull; Team 2 &bull; March 2026</div>
+        <div class="footer-hearts">&#127800; &#128154; &#127800; &#128154; &#127800;</div>
+    </div>
+
+</div>
+
+<script>
+// ===== GLOBAL RAIN: COINS, SHAMROCKS, CONFETTI, SPARKLES =====
+const globalRain = document.getElementById('globalRain');
+if (globalRain) {
+    const rainItems = [
+        {e:'\u{1FA99}',w:0.25}, {e:'\u{1F4B0}',w:0.08}, {e:'\u2728',w:0.15},
+        {e:'\u2618\uFE0F',w:0.2}, {e:'\u{1F340}',w:0.07}, {e:'\u{1F31F}',w:0.1},
+        {e:'\u{1F38A}',w:0.08}, {e:'\u{1F389}',w:0.07}
+    ];
+    function pickRainItem() {
+        let r = Math.random(), cum = 0;
+        for (const item of rainItems) { cum += item.w; if (r <= cum) return item.e; }
+        return rainItems[0].e;
+    }
+    for (let i = 0; i < 80; i++) {
+        const el = document.createElement('div');
+        el.className = 'rain-item';
+        el.textContent = pickRainItem();
+        el.style.left = Math.random() * 100 + '%';
+        el.style.fontSize = (10 + Math.random() * 16) + 'px';
+        el.style.animationDuration = (4 + Math.random() * 8) + 's';
+        el.style.animationDelay = Math.random() * 15 + 's';
+        el.style.setProperty('--rx1', (Math.random()*60-30) + 'px');
+        el.style.setProperty('--rx2', (Math.random()*80-40) + 'px');
+        globalRain.appendChild(el);
+    }
+    // RAINBOW STREAKS
+    const streakColors = ['#ef4444','#f97316','#eab308','#22c55e','#3b82f6','#8b5cf6','#ec4899'];
+    for (let i = 0; i < 25; i++) {
+        const s = document.createElement('div');
+        s.className = 'rainbow-streak';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.height = (30 + Math.random() * 50) + 'px';
+        s.style.background = `linear-gradient(180deg, ${streakColors[Math.floor(Math.random()*streakColors.length)]}, transparent)`;
+        s.style.animationDuration = (2 + Math.random() * 4) + 's';
+        s.style.animationDelay = Math.random() * 20 + 's';
+        globalRain.appendChild(s);
+    }
+}
+
+// ===== GLITTER BURSTS =====
+const glitterContainer = document.getElementById('glitterBursts');
+if (glitterContainer) {
+    const glitterColors = ['#fbbf24','#f59e0b','#fcd34d','#ffffff','#34d399','#a78bfa','#fb7185','#38bdf8'];
+    for (let i = 0; i < 30; i++) {
+        const g = document.createElement('div');
+        g.className = 'glitter-burst';
+        g.style.left = Math.random() * 100 + '%';
+        g.style.top = Math.random() * 100 + '%';
+        g.style.background = glitterColors[Math.floor(Math.random()*glitterColors.length)];
+        g.style.width = (4 + Math.random()*8) + 'px';
+        g.style.height = g.style.width;
+        g.style.animationDuration = (2 + Math.random()*4) + 's';
+        g.style.animationDelay = Math.random() * 12 + 's';
+        g.style.boxShadow = `0 0 ${6+Math.random()*10}px ${g.style.background}`;
+        glitterContainer.appendChild(g);
+    }
+}
+
+// ===== PERSISTENT BOTTOM PARADE COIN THROWING =====
+const bottomCoinThrower = document.getElementById('bottomCoinThrower');
+if (bottomCoinThrower) {
+    setInterval(() => {
+        for (let i = 0; i < 4; i++) {
+            const c = document.createElement('div');
+            c.className = 'bottom-thrown-coin';
+            c.textContent = '\u{1FA99}';
+            c.style.setProperty('--btcx', (Math.random()*80-40) + 'px');
+            c.style.setProperty('--btcy', (-20 - Math.random()*40) + 'px');
+            c.style.animationDuration = (0.6 + Math.random()*0.5) + 's';
+            c.style.animationDelay = (Math.random()*0.2) + 's';
+            bottomCoinThrower.appendChild(c);
+            setTimeout(() => c.remove(), 1500);
+        }
+    }, 350);
+}
+
+// Generate floating petals
+const petalsContainer = document.getElementById('petals');
+const petalColors = ['#f9a8d4','#fda4af','#fca5a5','#fbbf24','#a78bfa','#86efac','#fdba74'];
+for (let i = 0; i < 18; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * 100 + '%';
+    petal.style.animationDuration = (8 + Math.random() * 10) + 's';
+    petal.style.animationDelay = Math.random() * 12 + 's';
+    const size = 12 + Math.random() * 14;
+    const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+    petal.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="8" ry="5" fill="${color}" opacity="0.7" transform="rotate(${Math.random()*360} 10 10)"/></svg>`;
+    petalsContainer.appendChild(petal);
+}
+
+// Generate fireflies
+const firefliesContainer = document.getElementById('fireflies');
+for (let i = 0; i < 10; i++) {
+    const ff = document.createElement('div');
+    ff.className = 'firefly';
+    ff.style.left = Math.random() * 100 + '%';
+    ff.style.top = Math.random() * 100 + '%';
+    ff.style.setProperty('--fx', (Math.random() * 200 - 100) + 'px');
+    ff.style.setProperty('--fy', (Math.random() * 200 - 100) + 'px');
+    ff.style.animationDuration = (6 + Math.random() * 8) + 's';
+    ff.style.animationDelay = Math.random() * 6 + 's';
+    firefliesContainer.appendChild(ff);
+}
+
+// Generate header stars
+const starsContainer = document.getElementById('headerStars');
+for (let i = 0; i < 40; i++) {
+    const star = document.createElement('div');
+    star.className = 'header-star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (2 + Math.random() * 3) + 's';
+    starsContainer.appendChild(star);
+}
+
+// ── CLOVER FIELD GENERATOR ──────────────────────────────────────────────
+(function() {
+    const field = document.getElementById('cloverField');
+    if (!field) return;
+
+    // Corner zones: each has a bounding box [xMin%, xMax%, yMin%, yMax%]
+    const corners = [
+        { xMin:0,  xMax:28, yMin:0,  yMax:45 },   // top-left
+        { xMin:72, xMax:100,yMin:0,  yMax:45 },   // top-right
+        { xMin:0,  xMax:28, yMin:55, yMax:100 },  // bottom-left
+        { xMin:72, xMax:100,yMin:55, yMax:100 },  // bottom-right
+        // edge strips
+        { xMin:20, xMax:80, yMin:0,  yMax:12 },   // top edge
+        { xMin:20, xMax:80, yMin:88, yMax:100 },  // bottom edge
+    ];
+
+    const types = ['', 'spin', 'grow'];
+    const sizes = [16, 18, 20, 22, 24, 26, 28];
+
+    let count = 0;
+    corners.forEach((zone, zi) => {
+        const perZone = zi < 4 ? 12 : 6;
+        for (let i = 0; i < perZone; i++) {
+            const el = document.createElement('div');
+            const type = types[Math.floor(Math.random() * types.length)];
+            el.className = 'clover' + (type ? ' ' + type : '');
+            el.textContent = '🍀';
+
+            const x = zone.xMin + Math.random() * (zone.xMax - zone.xMin);
+            const y = zone.yMin + Math.random() * (zone.yMax - zone.yMin);
+            el.style.left = x + '%';
+            el.style.top  = y + '%';
+
+            const size = sizes[Math.floor(Math.random() * sizes.length)];
+            el.style.fontSize = size + 'px';
+
+            const dur = 4 + Math.random() * 6;
+            const delay = Math.random() * 8;
+            el.style.setProperty('--dur', dur + 's');
+            el.style.setProperty('--delay', delay + 's');
+
+            // Random drift vectors for cloverLife
+            const tx  = (Math.random() - 0.5) * 40;
+            const ty  = -(10 + Math.random() * 30);
+            const tx2 = tx + (Math.random() - 0.5) * 20;
+            const ty2 = ty - (10 + Math.random() * 20);
+            el.style.setProperty('--tx',  tx  + 'px');
+            el.style.setProperty('--ty',  ty  + 'px');
+            el.style.setProperty('--tx2', tx2 + 'px');
+            el.style.setProperty('--ty2', ty2 + 'px');
+
+            // Vary glow intensity
+            const glow = 0.4 + Math.random() * 0.6;
+            el.style.filter = `drop-shadow(0 0 ${4 + Math.floor(Math.random()*8)}px rgba(34,197,94,${glow}))`;
+
+            field.appendChild(el);
+            count++;
+        }
+    });
+    console.log('Clovers generated:', count);
+})();
+// Cardi section - floating background coins
+const cardiBgCoins = document.getElementById('cardiBgCoins');
+if (cardiBgCoins) {
+    const coinEmojis2 = ['\u{1FA99}', '\u{1F4B0}', '\u{1FA99}', '\u2728', '\u{1FA99}', '\u{1F31F}', '\u{1FA99}'];
+    for (let i = 0; i < 40; i++) {
+        const c = document.createElement('div');
+        c.className = 'cardi-coin-bg';
+        c.textContent = coinEmojis2[Math.floor(Math.random() * coinEmojis2.length)];
+        c.style.left = Math.random() * 100 + '%';
+        c.style.top = Math.random() * 100 + '%';
+        c.style.fontSize = (16 + Math.random() * 28) + 'px';
+        c.style.animationDuration = (4 + Math.random() * 6) + 's';
+        c.style.animationDelay = Math.random() * 5 + 's';
+        cardiBgCoins.appendChild(c);
+    }
+}
+
+// Cardi section - raining gold coins
+const cardiConfetti = document.getElementById('cardiConfetti');
+if (cardiConfetti) {
+    for (let i = 0; i < 100; i++) {
+        const c = document.createElement('div');
+        c.className = 'cardi-confetti-coin';
+        c.textContent = ['\u{1FA99}','\u{1FA99}','\u{1FA99}','\u{1F4B0}','\u2728','\u{1F31F}'][Math.floor(Math.random()*6)];
+        c.style.left = Math.random() * 100 + '%';
+        c.style.fontSize = (10 + Math.random() * 14) + 'px';
+        c.style.animationDuration = (3 + Math.random() * 5) + 's';
+        c.style.animationDelay = Math.random() * 10 + 's';
+        cardiConfetti.appendChild(c);
+    }
+}
+
+// Live countdown to March 26, 2026 Team Engagement
+function updateCountdown() {
+    const target = new Date('2026-03-26T08:00:00').getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+    if (diff > 0) {
+        document.getElementById('cd-days').textContent = Math.floor(diff / (1000*60*60*24));
+        document.getElementById('cd-hours').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        document.getElementById('cd-mins').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+        document.getElementById('cd-secs').textContent = Math.floor((diff % (1000*60)) / 1000);
+    } else {
+        document.getElementById('cd-days').textContent = '0';
+        document.getElementById('cd-hours').textContent = '0';
+        document.getElementById('cd-mins').textContent = '0';
+        document.getElementById('cd-secs').textContent = '0';
+    }
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Cinematic closer stars
+const cinematicStars = document.getElementById('cinematicStars');
+if (cinematicStars) {
+    for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'cinematic-star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.width = (1 + Math.random() * 2) + 'px';
+        star.style.height = star.style.width;
+        cinematicStars.appendChild(star);
+    }
+}
+
+// Generate 100+ gold coins raining across the parade
+const coinContainer = document.getElementById('coinContainer');
+if (coinContainer) {
+    const coinEmojis = ['\u{1FA99}', '\u{1FA99}', '\u{1FA99}', '\u{1F4B0}', '\u2728', '\u{1FA99}', '\u{1F31F}'];
+    for (let i = 0; i < 120; i++) {
+        const coin = document.createElement('div');
+        coin.className = 'coin';
+        coin.textContent = coinEmojis[Math.floor(Math.random() * coinEmojis.length)];
+        coin.style.left = Math.random() * 100 + '%';
+        coin.style.top = '-30px';
+        coin.style.fontSize = (12 + Math.random() * 16) + 'px';
+        coin.style.animationDuration = (2.5 + Math.random() * 4) + 's';
+        coin.style.animationDelay = Math.random() * 14 + 's';
+        coin.style.setProperty('--cx', (Math.random() * 120 - 60) + 'px');
+        coin.style.setProperty('--cx2', (Math.random() * 200 - 100) + 'px');
+        coinContainer.appendChild(coin);
+    }
+}
+
+// Leprechaun throwing coins continuously
+const lepCoinThrower = document.getElementById('lepCoinThrower');
+if (lepCoinThrower) {
+    setInterval(() => {
+        for (let i = 0; i < 3; i++) {
+            const c = document.createElement('div');
+            c.className = 'leprechaun-coin-throw';
+            c.textContent = '\u{1FA99}';
+            c.style.setProperty('--tcx', (Math.random() * 100 - 50) + 'px');
+            c.style.setProperty('--tcy', (-40 - Math.random() * 60) + 'px');
+            c.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+            c.style.animationDelay = (Math.random() * 0.3) + 's';
+            lepCoinThrower.appendChild(c);
+            setTimeout(() => c.remove(), 2000);
+        }
+    }, 400);
+}
+
+// Generate floating clovers for St. Patrick's section
+const cloversContainer = document.getElementById('stpatClovers');
+if (cloversContainer) {
+    const cloverEmojis = ['\u2618\uFE0F', '\u2618\uFE0F', '\u2618\uFE0F', '\u{1F340}'];
+    for (let i = 0; i < 20; i++) {
+        const clover = document.createElement('div');
+        clover.className = 'stpat-clover';
+        clover.textContent = cloverEmojis[Math.floor(Math.random() * cloverEmojis.length)];
+        clover.style.left = Math.random() * 100 + '%';
+        clover.style.top = Math.random() * 100 + '%';
+        clover.style.fontSize = (16 + Math.random() * 24) + 'px';
+        clover.style.animationDuration = (8 + Math.random() * 10) + 's';
+        clover.style.animationDelay = Math.random() * 8 + 's';
+        cloversContainer.appendChild(clover);
+    }
+}
+</script>
+
+</body>
+</html>
